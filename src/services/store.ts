@@ -33,8 +33,11 @@ function set(fn: (d: BankState) => void) {
   listeners.forEach((l) => l());
 }
 export const getState = () => state;
+const subscribe = (l: () => void) => { listeners.add(l); return () => { listeners.delete(l); }; };
 export function useBank<R>(sel: (s: BankState) => R): R {
-  return useSyncExternalStore((l) => (listeners.add(l), () => listeners.delete(l)), () => sel(state), () => sel(serverState));
+  // Subscribe to the immutable root snapshot, derive in render: selectors may return fresh arrays.
+  const snap = useSyncExternalStore(subscribe, () => state, () => serverState);
+  return sel(snap);
 }
 const now = () => new Date().toISOString();
 function audit(d: BankState, action: string, entity: string, entityId: string, outcome: T.AuditLog["outcome"] = "SUCCESS") {

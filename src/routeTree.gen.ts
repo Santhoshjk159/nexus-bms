@@ -15,6 +15,14 @@ import { Route as CustomerRouteImport } from './routes/customer'
 import { Route as EmployeeRouteImport } from './routes/employee'
 import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as AdminAuditLogsRouteImport } from './routes/admin.audit-logs'
+import { Route as AdminBranchesRouteImport } from './routes/admin.branches'
+import { Route as AdminComplianceRouteImport } from './routes/admin.compliance'
+import { Route as AdminDashboardRouteImport } from './routes/admin.dashboard'
+import { Route as AdminEmployeesRouteImport } from './routes/admin.employees'
+import { Route as AdminLedgerRouteImport } from './routes/admin.ledger'
+import { Route as AdminRolesRouteImport } from './routes/admin.roles'
+import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
 import { Route as CustomerAccountsRouteImport } from './routes/customer.accounts'
 import { Route as CustomerBeneficiariesRouteImport } from './routes/customer.beneficiaries'
 import { Route as CustomerCardsRouteImport } from './routes/customer.cards'
@@ -23,6 +31,15 @@ import { Route as CustomerLoansRouteImport } from './routes/customer.loans'
 import { Route as CustomerProfileRouteImport } from './routes/customer.profile'
 import { Route as CustomerTransactionsRouteImport } from './routes/customer.transactions'
 import { Route as CustomerTransfersRouteImport } from './routes/customer.transfers'
+import { Route as EmployeeAccountsRouteImport } from './routes/employee.accounts'
+import { Route as EmployeeCustomersRouteImport } from './routes/employee.customers'
+import { Route as EmployeeDashboardRouteImport } from './routes/employee.dashboard'
+import { Route as EmployeeFraudMonitoringRouteImport } from './routes/employee.fraud-monitoring'
+import { Route as EmployeeKycRouteImport } from './routes/employee.kyc'
+import { Route as EmployeeLoansRouteImport } from './routes/employee.loans'
+import { Route as EmployeeReportsRouteImport } from './routes/employee.reports'
+import { Route as EmployeeSupportRouteImport } from './routes/employee.support'
+import { Route as EmployeeTransactionsRouteImport } from './routes/employee.transactions'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -53,6 +70,46 @@ const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AdminAuditLogsRoute = AdminAuditLogsRouteImport.update({
+  id: '/audit-logs',
+  path: '/audit-logs',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminBranchesRoute = AdminBranchesRouteImport.update({
+  id: '/branches',
+  path: '/branches',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminComplianceRoute = AdminComplianceRouteImport.update({
+  id: '/compliance',
+  path: '/compliance',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminDashboardRoute = AdminDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminEmployeesRoute = AdminEmployeesRouteImport.update({
+  id: '/employees',
+  path: '/employees',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminLedgerRoute = AdminLedgerRouteImport.update({
+  id: '/ledger',
+  path: '/ledger',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminRolesRoute = AdminRolesRouteImport.update({
+  id: '/roles',
+  path: '/roles',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminSettingsRoute = AdminSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AdminRoute,
 } as any)
 const CustomerAccountsRoute = CustomerAccountsRouteImport.update({
   id: '/accounts',
@@ -94,14 +151,67 @@ const CustomerTransfersRoute = CustomerTransfersRouteImport.update({
   path: '/transfers',
   getParentRoute: () => CustomerRoute,
 } as any)
+const EmployeeAccountsRoute = EmployeeAccountsRouteImport.update({
+  id: '/accounts',
+  path: '/accounts',
+  getParentRoute: () => EmployeeRoute,
+} as any)
+const EmployeeCustomersRoute = EmployeeCustomersRouteImport.update({
+  id: '/customers',
+  path: '/customers',
+  getParentRoute: () => EmployeeRoute,
+} as any)
+const EmployeeDashboardRoute = EmployeeDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => EmployeeRoute,
+} as any)
+const EmployeeFraudMonitoringRoute = EmployeeFraudMonitoringRouteImport.update({
+  id: '/fraud-monitoring',
+  path: '/fraud-monitoring',
+  getParentRoute: () => EmployeeRoute,
+} as any)
+const EmployeeKycRoute = EmployeeKycRouteImport.update({
+  id: '/kyc',
+  path: '/kyc',
+  getParentRoute: () => EmployeeRoute,
+} as any)
+const EmployeeLoansRoute = EmployeeLoansRouteImport.update({
+  id: '/loans',
+  path: '/loans',
+  getParentRoute: () => EmployeeRoute,
+} as any)
+const EmployeeReportsRoute = EmployeeReportsRouteImport.update({
+  id: '/reports',
+  path: '/reports',
+  getParentRoute: () => EmployeeRoute,
+} as any)
+const EmployeeSupportRoute = EmployeeSupportRouteImport.update({
+  id: '/support',
+  path: '/support',
+  getParentRoute: () => EmployeeRoute,
+} as any)
+const EmployeeTransactionsRoute = EmployeeTransactionsRouteImport.update({
+  id: '/transactions',
+  path: '/transactions',
+  getParentRoute: () => EmployeeRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/admin': typeof AdminRoute
+  '/admin': typeof AdminRouteWithChildren
   '/customer': typeof CustomerRouteWithChildren
-  '/employee': typeof EmployeeRoute
+  '/employee': typeof EmployeeRouteWithChildren
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
+  '/admin/audit-logs': typeof AdminAuditLogsRoute
+  '/admin/branches': typeof AdminBranchesRoute
+  '/admin/compliance': typeof AdminComplianceRoute
+  '/admin/dashboard': typeof AdminDashboardRoute
+  '/admin/employees': typeof AdminEmployeesRoute
+  '/admin/ledger': typeof AdminLedgerRoute
+  '/admin/roles': typeof AdminRolesRoute
+  '/admin/settings': typeof AdminSettingsRoute
   '/customer/accounts': typeof CustomerAccountsRoute
   '/customer/beneficiaries': typeof CustomerBeneficiariesRoute
   '/customer/cards': typeof CustomerCardsRoute
@@ -110,14 +220,31 @@ export interface FileRoutesByFullPath {
   '/customer/profile': typeof CustomerProfileRoute
   '/customer/transactions': typeof CustomerTransactionsRoute
   '/customer/transfers': typeof CustomerTransfersRoute
+  '/employee/accounts': typeof EmployeeAccountsRoute
+  '/employee/customers': typeof EmployeeCustomersRoute
+  '/employee/dashboard': typeof EmployeeDashboardRoute
+  '/employee/fraud-monitoring': typeof EmployeeFraudMonitoringRoute
+  '/employee/kyc': typeof EmployeeKycRoute
+  '/employee/loans': typeof EmployeeLoansRoute
+  '/employee/reports': typeof EmployeeReportsRoute
+  '/employee/support': typeof EmployeeSupportRoute
+  '/employee/transactions': typeof EmployeeTransactionsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/admin': typeof AdminRoute
+  '/admin': typeof AdminRouteWithChildren
   '/customer': typeof CustomerRouteWithChildren
-  '/employee': typeof EmployeeRoute
+  '/employee': typeof EmployeeRouteWithChildren
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
+  '/admin/audit-logs': typeof AdminAuditLogsRoute
+  '/admin/branches': typeof AdminBranchesRoute
+  '/admin/compliance': typeof AdminComplianceRoute
+  '/admin/dashboard': typeof AdminDashboardRoute
+  '/admin/employees': typeof AdminEmployeesRoute
+  '/admin/ledger': typeof AdminLedgerRoute
+  '/admin/roles': typeof AdminRolesRoute
+  '/admin/settings': typeof AdminSettingsRoute
   '/customer/accounts': typeof CustomerAccountsRoute
   '/customer/beneficiaries': typeof CustomerBeneficiariesRoute
   '/customer/cards': typeof CustomerCardsRoute
@@ -126,15 +253,32 @@ export interface FileRoutesByTo {
   '/customer/profile': typeof CustomerProfileRoute
   '/customer/transactions': typeof CustomerTransactionsRoute
   '/customer/transfers': typeof CustomerTransfersRoute
+  '/employee/accounts': typeof EmployeeAccountsRoute
+  '/employee/customers': typeof EmployeeCustomersRoute
+  '/employee/dashboard': typeof EmployeeDashboardRoute
+  '/employee/fraud-monitoring': typeof EmployeeFraudMonitoringRoute
+  '/employee/kyc': typeof EmployeeKycRoute
+  '/employee/loans': typeof EmployeeLoansRoute
+  '/employee/reports': typeof EmployeeReportsRoute
+  '/employee/support': typeof EmployeeSupportRoute
+  '/employee/transactions': typeof EmployeeTransactionsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/admin': typeof AdminRoute
+  '/admin': typeof AdminRouteWithChildren
   '/customer': typeof CustomerRouteWithChildren
-  '/employee': typeof EmployeeRoute
+  '/employee': typeof EmployeeRouteWithChildren
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
+  '/admin/audit-logs': typeof AdminAuditLogsRoute
+  '/admin/branches': typeof AdminBranchesRoute
+  '/admin/compliance': typeof AdminComplianceRoute
+  '/admin/dashboard': typeof AdminDashboardRoute
+  '/admin/employees': typeof AdminEmployeesRoute
+  '/admin/ledger': typeof AdminLedgerRoute
+  '/admin/roles': typeof AdminRolesRoute
+  '/admin/settings': typeof AdminSettingsRoute
   '/customer/accounts': typeof CustomerAccountsRoute
   '/customer/beneficiaries': typeof CustomerBeneficiariesRoute
   '/customer/cards': typeof CustomerCardsRoute
@@ -143,6 +287,15 @@ export interface FileRoutesById {
   '/customer/profile': typeof CustomerProfileRoute
   '/customer/transactions': typeof CustomerTransactionsRoute
   '/customer/transfers': typeof CustomerTransfersRoute
+  '/employee/accounts': typeof EmployeeAccountsRoute
+  '/employee/customers': typeof EmployeeCustomersRoute
+  '/employee/dashboard': typeof EmployeeDashboardRoute
+  '/employee/fraud-monitoring': typeof EmployeeFraudMonitoringRoute
+  '/employee/kyc': typeof EmployeeKycRoute
+  '/employee/loans': typeof EmployeeLoansRoute
+  '/employee/reports': typeof EmployeeReportsRoute
+  '/employee/support': typeof EmployeeSupportRoute
+  '/employee/transactions': typeof EmployeeTransactionsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -153,6 +306,14 @@ export interface FileRouteTypes {
     | '/employee'
     | '/forgot-password'
     | '/login'
+    | '/admin/audit-logs'
+    | '/admin/branches'
+    | '/admin/compliance'
+    | '/admin/dashboard'
+    | '/admin/employees'
+    | '/admin/ledger'
+    | '/admin/roles'
+    | '/admin/settings'
     | '/customer/accounts'
     | '/customer/beneficiaries'
     | '/customer/cards'
@@ -161,6 +322,15 @@ export interface FileRouteTypes {
     | '/customer/profile'
     | '/customer/transactions'
     | '/customer/transfers'
+    | '/employee/accounts'
+    | '/employee/customers'
+    | '/employee/dashboard'
+    | '/employee/fraud-monitoring'
+    | '/employee/kyc'
+    | '/employee/loans'
+    | '/employee/reports'
+    | '/employee/support'
+    | '/employee/transactions'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -169,6 +339,14 @@ export interface FileRouteTypes {
     | '/employee'
     | '/forgot-password'
     | '/login'
+    | '/admin/audit-logs'
+    | '/admin/branches'
+    | '/admin/compliance'
+    | '/admin/dashboard'
+    | '/admin/employees'
+    | '/admin/ledger'
+    | '/admin/roles'
+    | '/admin/settings'
     | '/customer/accounts'
     | '/customer/beneficiaries'
     | '/customer/cards'
@@ -177,6 +355,15 @@ export interface FileRouteTypes {
     | '/customer/profile'
     | '/customer/transactions'
     | '/customer/transfers'
+    | '/employee/accounts'
+    | '/employee/customers'
+    | '/employee/dashboard'
+    | '/employee/fraud-monitoring'
+    | '/employee/kyc'
+    | '/employee/loans'
+    | '/employee/reports'
+    | '/employee/support'
+    | '/employee/transactions'
   id:
     | '__root__'
     | '/'
@@ -185,6 +372,14 @@ export interface FileRouteTypes {
     | '/employee'
     | '/forgot-password'
     | '/login'
+    | '/admin/audit-logs'
+    | '/admin/branches'
+    | '/admin/compliance'
+    | '/admin/dashboard'
+    | '/admin/employees'
+    | '/admin/ledger'
+    | '/admin/roles'
+    | '/admin/settings'
     | '/customer/accounts'
     | '/customer/beneficiaries'
     | '/customer/cards'
@@ -193,13 +388,22 @@ export interface FileRouteTypes {
     | '/customer/profile'
     | '/customer/transactions'
     | '/customer/transfers'
+    | '/employee/accounts'
+    | '/employee/customers'
+    | '/employee/dashboard'
+    | '/employee/fraud-monitoring'
+    | '/employee/kyc'
+    | '/employee/loans'
+    | '/employee/reports'
+    | '/employee/support'
+    | '/employee/transactions'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AdminRoute: typeof AdminRoute
+  AdminRoute: typeof AdminRouteWithChildren
   CustomerRoute: typeof CustomerRouteWithChildren
-  EmployeeRoute: typeof EmployeeRoute
+  EmployeeRoute: typeof EmployeeRouteWithChildren
   ForgotPasswordRoute: typeof ForgotPasswordRoute
   LoginRoute: typeof LoginRoute
 }
@@ -247,6 +451,62 @@ declare module '@tanstack/react-router' {
       fullPath: '/login'
       preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/admin/audit-logs': {
+      id: '/admin/audit-logs'
+      path: '/audit-logs'
+      fullPath: '/admin/audit-logs'
+      preLoaderRoute: typeof AdminAuditLogsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/branches': {
+      id: '/admin/branches'
+      path: '/branches'
+      fullPath: '/admin/branches'
+      preLoaderRoute: typeof AdminBranchesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/compliance': {
+      id: '/admin/compliance'
+      path: '/compliance'
+      fullPath: '/admin/compliance'
+      preLoaderRoute: typeof AdminComplianceRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/dashboard': {
+      id: '/admin/dashboard'
+      path: '/dashboard'
+      fullPath: '/admin/dashboard'
+      preLoaderRoute: typeof AdminDashboardRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/employees': {
+      id: '/admin/employees'
+      path: '/employees'
+      fullPath: '/admin/employees'
+      preLoaderRoute: typeof AdminEmployeesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/ledger': {
+      id: '/admin/ledger'
+      path: '/ledger'
+      fullPath: '/admin/ledger'
+      preLoaderRoute: typeof AdminLedgerRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/roles': {
+      id: '/admin/roles'
+      path: '/roles'
+      fullPath: '/admin/roles'
+      preLoaderRoute: typeof AdminRolesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/settings': {
+      id: '/admin/settings'
+      path: '/settings'
+      fullPath: '/admin/settings'
+      preLoaderRoute: typeof AdminSettingsRouteImport
+      parentRoute: typeof AdminRoute
     }
     '/customer/accounts': {
       id: '/customer/accounts'
@@ -304,8 +564,95 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CustomerTransfersRouteImport
       parentRoute: typeof CustomerRoute
     }
+    '/employee/accounts': {
+      id: '/employee/accounts'
+      path: '/accounts'
+      fullPath: '/employee/accounts'
+      preLoaderRoute: typeof EmployeeAccountsRouteImport
+      parentRoute: typeof EmployeeRoute
+    }
+    '/employee/customers': {
+      id: '/employee/customers'
+      path: '/customers'
+      fullPath: '/employee/customers'
+      preLoaderRoute: typeof EmployeeCustomersRouteImport
+      parentRoute: typeof EmployeeRoute
+    }
+    '/employee/dashboard': {
+      id: '/employee/dashboard'
+      path: '/dashboard'
+      fullPath: '/employee/dashboard'
+      preLoaderRoute: typeof EmployeeDashboardRouteImport
+      parentRoute: typeof EmployeeRoute
+    }
+    '/employee/fraud-monitoring': {
+      id: '/employee/fraud-monitoring'
+      path: '/fraud-monitoring'
+      fullPath: '/employee/fraud-monitoring'
+      preLoaderRoute: typeof EmployeeFraudMonitoringRouteImport
+      parentRoute: typeof EmployeeRoute
+    }
+    '/employee/kyc': {
+      id: '/employee/kyc'
+      path: '/kyc'
+      fullPath: '/employee/kyc'
+      preLoaderRoute: typeof EmployeeKycRouteImport
+      parentRoute: typeof EmployeeRoute
+    }
+    '/employee/loans': {
+      id: '/employee/loans'
+      path: '/loans'
+      fullPath: '/employee/loans'
+      preLoaderRoute: typeof EmployeeLoansRouteImport
+      parentRoute: typeof EmployeeRoute
+    }
+    '/employee/reports': {
+      id: '/employee/reports'
+      path: '/reports'
+      fullPath: '/employee/reports'
+      preLoaderRoute: typeof EmployeeReportsRouteImport
+      parentRoute: typeof EmployeeRoute
+    }
+    '/employee/support': {
+      id: '/employee/support'
+      path: '/support'
+      fullPath: '/employee/support'
+      preLoaderRoute: typeof EmployeeSupportRouteImport
+      parentRoute: typeof EmployeeRoute
+    }
+    '/employee/transactions': {
+      id: '/employee/transactions'
+      path: '/transactions'
+      fullPath: '/employee/transactions'
+      preLoaderRoute: typeof EmployeeTransactionsRouteImport
+      parentRoute: typeof EmployeeRoute
+    }
   }
 }
+
+interface AdminRouteChildren {
+  AdminAuditLogsRoute: typeof AdminAuditLogsRoute
+  AdminBranchesRoute: typeof AdminBranchesRoute
+  AdminComplianceRoute: typeof AdminComplianceRoute
+  AdminDashboardRoute: typeof AdminDashboardRoute
+  AdminEmployeesRoute: typeof AdminEmployeesRoute
+  AdminLedgerRoute: typeof AdminLedgerRoute
+  AdminRolesRoute: typeof AdminRolesRoute
+  AdminSettingsRoute: typeof AdminSettingsRoute
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminAuditLogsRoute: AdminAuditLogsRoute,
+  AdminBranchesRoute: AdminBranchesRoute,
+  AdminComplianceRoute: AdminComplianceRoute,
+  AdminDashboardRoute: AdminDashboardRoute,
+  AdminEmployeesRoute: AdminEmployeesRoute,
+  AdminLedgerRoute: AdminLedgerRoute,
+  AdminRolesRoute: AdminRolesRoute,
+  AdminSettingsRoute: AdminSettingsRoute,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 
 interface CustomerRouteChildren {
   CustomerAccountsRoute: typeof CustomerAccountsRoute
@@ -333,11 +680,39 @@ const CustomerRouteWithChildren = CustomerRoute._addFileChildren(
   CustomerRouteChildren,
 )
 
+interface EmployeeRouteChildren {
+  EmployeeAccountsRoute: typeof EmployeeAccountsRoute
+  EmployeeCustomersRoute: typeof EmployeeCustomersRoute
+  EmployeeDashboardRoute: typeof EmployeeDashboardRoute
+  EmployeeFraudMonitoringRoute: typeof EmployeeFraudMonitoringRoute
+  EmployeeKycRoute: typeof EmployeeKycRoute
+  EmployeeLoansRoute: typeof EmployeeLoansRoute
+  EmployeeReportsRoute: typeof EmployeeReportsRoute
+  EmployeeSupportRoute: typeof EmployeeSupportRoute
+  EmployeeTransactionsRoute: typeof EmployeeTransactionsRoute
+}
+
+const EmployeeRouteChildren: EmployeeRouteChildren = {
+  EmployeeAccountsRoute: EmployeeAccountsRoute,
+  EmployeeCustomersRoute: EmployeeCustomersRoute,
+  EmployeeDashboardRoute: EmployeeDashboardRoute,
+  EmployeeFraudMonitoringRoute: EmployeeFraudMonitoringRoute,
+  EmployeeKycRoute: EmployeeKycRoute,
+  EmployeeLoansRoute: EmployeeLoansRoute,
+  EmployeeReportsRoute: EmployeeReportsRoute,
+  EmployeeSupportRoute: EmployeeSupportRoute,
+  EmployeeTransactionsRoute: EmployeeTransactionsRoute,
+}
+
+const EmployeeRouteWithChildren = EmployeeRoute._addFileChildren(
+  EmployeeRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AdminRoute: AdminRoute,
+  AdminRoute: AdminRouteWithChildren,
   CustomerRoute: CustomerRouteWithChildren,
-  EmployeeRoute: EmployeeRoute,
+  EmployeeRoute: EmployeeRouteWithChildren,
   ForgotPasswordRoute: ForgotPasswordRoute,
   LoginRoute: LoginRoute,
 }
