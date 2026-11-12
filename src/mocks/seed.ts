@@ -188,7 +188,7 @@ const ACT = ["LOGIN", "KYC_APPROVED", "ACCOUNT_SUSPENDED", "TRANSFER_INITIATED",
 export const auditLogs: T.AuditLog[] = Array.from({ length: 60 }, (_, i) => {
   const action = ACT[i % ACT.length]; const role: T.Role = ["TRANSFER_INITIATED", "BENEFICIARY_ADDED"].includes(action) ? "CUSTOMER" : ["ROLE_UPDATED", "SETTINGS_CHANGED"].includes(action) ? "ADMIN" : "EMPLOYEE";
   return { id: `AU${pad(i + 1, 5)}`, at: daysAgo(i * 0.4), actor: role === "CUSTOMER" ? `${pick(customers).firstName} (customer)` : role === "ADMIN" ? "Devika Raman" : pick(employees).name, actorRole: role, action,
-    entity: action.split("_")[0], entityId: `${action.slice(0, 2)}-${int(1000, 9999)}`, ip: `10.${int(0, 255)}.${int(0, 255)}.${int(1, 254)}`, outcome: action === "LOGIN_FAILED" ? "FAILURE" : "SUCCESS" };
+    entity: action.split("_")[0], entityId: `${action.slice(0, 2)}-${int(1000, 9999)}`, ip: `10.${int(0, 255)}.${int(0, 255)}.${int(1, 254)}`, outcome: (action === "LOGIN_FAILED" ? "FAILURE" : "SUCCESS") as T.AuditLog["outcome"] };
 }).sort((a, b) => b.at.localeCompare(a.at));
 
 export const notifications: T.Notification[] = [

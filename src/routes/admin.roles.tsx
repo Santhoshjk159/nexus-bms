@@ -25,7 +25,7 @@ function Roles() {
       <div className="mb-4 grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
         {roles.map((r) => { const n = emps.filter((e) => e.roleId === r.id).length; return (
           <div key={r.id} className="card-surface p-4">
-            <div className="flex items-start justify-between"><p className="text-sm font-semibold">{r.name}</p>{r.system ? <Lock className="size-3.5 text-muted-foreground" /> : <Confirm destructive title={`Delete ${r.name}?`} description={n ? `${n} employees hold this role — reassign them first.` : "This role will be removed."} confirmLabel="Delete" onConfirm={() => { if (n) return toast.error("Role is in use"); actions.deleteRole(r.id); toast.success("Role deleted"); }} trigger={<button aria-label="Delete role"><Trash2 className="size-3.5 text-muted-foreground hover:text-destructive" /></button>} />}</div>
+            <div className="flex items-start justify-between"><p className="text-sm font-semibold">{r.name}</p>{r.system ? <Lock className="size-3.5 text-muted-foreground" /> : <Confirm destructive title={`Delete ${r.name}?`} description={n ? `${n} employees hold this role — reassign them first.` : "This role will be removed."} confirmLabel="Delete" onConfirm={() => { if (n) { toast.error("Role is in use"); return; } actions.deleteRole(r.id); toast.success("Role deleted"); }} trigger={<button aria-label="Delete role"><Trash2 className="size-3.5 text-muted-foreground hover:text-destructive" /></button>} />}</div>
             <p className="mt-1 text-xs text-muted-foreground">{r.description || "—"}</p>
             <p className="mt-3 text-xs"><span className="num font-semibold">{r.permissions.length}</span> permissions · <span className="num font-semibold">{n}</span> users</p>
           </div>); })}

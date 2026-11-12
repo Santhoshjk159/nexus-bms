@@ -28,3 +28,8 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Project rules
+- Domain logic lives in `src/lib/banking.ts` (pure, tested) and `src/services/store.ts` (mock core persisted to localStorage); pages call `actions.*`/`useBank`, never mutate state directly — keeps a clean swap to Spring Boot via `src/services/api.ts`.
+- Portal layouts (`customer.tsx`, `employee.tsx`, `admin.tsx`) are `ssr: false` and guard with `canAccess` in `src/lib/auth.ts` — session lives in localStorage, so SSR cannot see it.
+- tsconfig keeps `strict` but disables `exactOptionalPropertyTypes`, `noUncheckedIndexedAccess`, `noPropertyAccessFromIndexSignature` — they conflicted with recharts/shadcn typings and dense seed data.
