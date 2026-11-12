@@ -23,6 +23,9 @@ import { Route as CustomerLoansRouteImport } from './routes/customer.loans'
 import { Route as CustomerProfileRouteImport } from './routes/customer.profile'
 import { Route as CustomerTransactionsRouteImport } from './routes/customer.transactions'
 import { Route as CustomerTransfersRouteImport } from './routes/customer.transfers'
+import { Route as EmployeeCustomersRouteImport } from './routes/employee.customers'
+import { Route as EmployeeDashboardRouteImport } from './routes/employee.dashboard'
+import { Route as EmployeeKycRouteImport } from './routes/employee.kyc'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -94,12 +97,27 @@ const CustomerTransfersRoute = CustomerTransfersRouteImport.update({
   path: '/transfers',
   getParentRoute: () => CustomerRoute,
 } as any)
+const EmployeeCustomersRoute = EmployeeCustomersRouteImport.update({
+  id: '/customers',
+  path: '/customers',
+  getParentRoute: () => EmployeeRoute,
+} as any)
+const EmployeeDashboardRoute = EmployeeDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => EmployeeRoute,
+} as any)
+const EmployeeKycRoute = EmployeeKycRouteImport.update({
+  id: '/kyc',
+  path: '/kyc',
+  getParentRoute: () => EmployeeRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
   '/customer': typeof CustomerRouteWithChildren
-  '/employee': typeof EmployeeRoute
+  '/employee': typeof EmployeeRouteWithChildren
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
   '/customer/accounts': typeof CustomerAccountsRoute
@@ -110,12 +128,15 @@ export interface FileRoutesByFullPath {
   '/customer/profile': typeof CustomerProfileRoute
   '/customer/transactions': typeof CustomerTransactionsRoute
   '/customer/transfers': typeof CustomerTransfersRoute
+  '/employee/customers': typeof EmployeeCustomersRoute
+  '/employee/dashboard': typeof EmployeeDashboardRoute
+  '/employee/kyc': typeof EmployeeKycRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
   '/customer': typeof CustomerRouteWithChildren
-  '/employee': typeof EmployeeRoute
+  '/employee': typeof EmployeeRouteWithChildren
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
   '/customer/accounts': typeof CustomerAccountsRoute
@@ -126,13 +147,16 @@ export interface FileRoutesByTo {
   '/customer/profile': typeof CustomerProfileRoute
   '/customer/transactions': typeof CustomerTransactionsRoute
   '/customer/transfers': typeof CustomerTransfersRoute
+  '/employee/customers': typeof EmployeeCustomersRoute
+  '/employee/dashboard': typeof EmployeeDashboardRoute
+  '/employee/kyc': typeof EmployeeKycRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
   '/customer': typeof CustomerRouteWithChildren
-  '/employee': typeof EmployeeRoute
+  '/employee': typeof EmployeeRouteWithChildren
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
   '/customer/accounts': typeof CustomerAccountsRoute
@@ -143,6 +167,9 @@ export interface FileRoutesById {
   '/customer/profile': typeof CustomerProfileRoute
   '/customer/transactions': typeof CustomerTransactionsRoute
   '/customer/transfers': typeof CustomerTransfersRoute
+  '/employee/customers': typeof EmployeeCustomersRoute
+  '/employee/dashboard': typeof EmployeeDashboardRoute
+  '/employee/kyc': typeof EmployeeKycRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -161,6 +188,9 @@ export interface FileRouteTypes {
     | '/customer/profile'
     | '/customer/transactions'
     | '/customer/transfers'
+    | '/employee/customers'
+    | '/employee/dashboard'
+    | '/employee/kyc'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -177,6 +207,9 @@ export interface FileRouteTypes {
     | '/customer/profile'
     | '/customer/transactions'
     | '/customer/transfers'
+    | '/employee/customers'
+    | '/employee/dashboard'
+    | '/employee/kyc'
   id:
     | '__root__'
     | '/'
@@ -193,13 +226,16 @@ export interface FileRouteTypes {
     | '/customer/profile'
     | '/customer/transactions'
     | '/customer/transfers'
+    | '/employee/customers'
+    | '/employee/dashboard'
+    | '/employee/kyc'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdminRoute: typeof AdminRoute
   CustomerRoute: typeof CustomerRouteWithChildren
-  EmployeeRoute: typeof EmployeeRoute
+  EmployeeRoute: typeof EmployeeRouteWithChildren
   ForgotPasswordRoute: typeof ForgotPasswordRoute
   LoginRoute: typeof LoginRoute
 }
@@ -304,6 +340,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CustomerTransfersRouteImport
       parentRoute: typeof CustomerRoute
     }
+    '/employee/customers': {
+      id: '/employee/customers'
+      path: '/customers'
+      fullPath: '/employee/customers'
+      preLoaderRoute: typeof EmployeeCustomersRouteImport
+      parentRoute: typeof EmployeeRoute
+    }
+    '/employee/dashboard': {
+      id: '/employee/dashboard'
+      path: '/dashboard'
+      fullPath: '/employee/dashboard'
+      preLoaderRoute: typeof EmployeeDashboardRouteImport
+      parentRoute: typeof EmployeeRoute
+    }
+    '/employee/kyc': {
+      id: '/employee/kyc'
+      path: '/kyc'
+      fullPath: '/employee/kyc'
+      preLoaderRoute: typeof EmployeeKycRouteImport
+      parentRoute: typeof EmployeeRoute
+    }
   }
 }
 
@@ -333,11 +390,27 @@ const CustomerRouteWithChildren = CustomerRoute._addFileChildren(
   CustomerRouteChildren,
 )
 
+interface EmployeeRouteChildren {
+  EmployeeCustomersRoute: typeof EmployeeCustomersRoute
+  EmployeeDashboardRoute: typeof EmployeeDashboardRoute
+  EmployeeKycRoute: typeof EmployeeKycRoute
+}
+
+const EmployeeRouteChildren: EmployeeRouteChildren = {
+  EmployeeCustomersRoute: EmployeeCustomersRoute,
+  EmployeeDashboardRoute: EmployeeDashboardRoute,
+  EmployeeKycRoute: EmployeeKycRoute,
+}
+
+const EmployeeRouteWithChildren = EmployeeRoute._addFileChildren(
+  EmployeeRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRoute: AdminRoute,
   CustomerRoute: CustomerRouteWithChildren,
-  EmployeeRoute: EmployeeRoute,
+  EmployeeRoute: EmployeeRouteWithChildren,
   ForgotPasswordRoute: ForgotPasswordRoute,
   LoginRoute: LoginRoute,
 }
