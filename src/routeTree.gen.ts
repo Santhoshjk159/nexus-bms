@@ -17,8 +17,10 @@ import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as CustomerAccountsRouteImport } from './routes/customer.accounts'
 import { Route as CustomerBeneficiariesRouteImport } from './routes/customer.beneficiaries'
+import { Route as CustomerCardsRouteImport } from './routes/customer.cards'
 import { Route as CustomerDashboardRouteImport } from './routes/customer.dashboard'
 import { Route as CustomerLoansRouteImport } from './routes/customer.loans'
+import { Route as CustomerProfileRouteImport } from './routes/customer.profile'
 import { Route as CustomerTransactionsRouteImport } from './routes/customer.transactions'
 import { Route as CustomerTransfersRouteImport } from './routes/customer.transfers'
 
@@ -62,6 +64,11 @@ const CustomerBeneficiariesRoute = CustomerBeneficiariesRouteImport.update({
   path: '/beneficiaries',
   getParentRoute: () => CustomerRoute,
 } as any)
+const CustomerCardsRoute = CustomerCardsRouteImport.update({
+  id: '/cards',
+  path: '/cards',
+  getParentRoute: () => CustomerRoute,
+} as any)
 const CustomerDashboardRoute = CustomerDashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
@@ -70,6 +77,11 @@ const CustomerDashboardRoute = CustomerDashboardRouteImport.update({
 const CustomerLoansRoute = CustomerLoansRouteImport.update({
   id: '/loans',
   path: '/loans',
+  getParentRoute: () => CustomerRoute,
+} as any)
+const CustomerProfileRoute = CustomerProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
   getParentRoute: () => CustomerRoute,
 } as any)
 const CustomerTransactionsRoute = CustomerTransactionsRouteImport.update({
@@ -92,8 +104,10 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/customer/accounts': typeof CustomerAccountsRoute
   '/customer/beneficiaries': typeof CustomerBeneficiariesRoute
+  '/customer/cards': typeof CustomerCardsRoute
   '/customer/dashboard': typeof CustomerDashboardRoute
   '/customer/loans': typeof CustomerLoansRoute
+  '/customer/profile': typeof CustomerProfileRoute
   '/customer/transactions': typeof CustomerTransactionsRoute
   '/customer/transfers': typeof CustomerTransfersRoute
 }
@@ -106,8 +120,10 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/customer/accounts': typeof CustomerAccountsRoute
   '/customer/beneficiaries': typeof CustomerBeneficiariesRoute
+  '/customer/cards': typeof CustomerCardsRoute
   '/customer/dashboard': typeof CustomerDashboardRoute
   '/customer/loans': typeof CustomerLoansRoute
+  '/customer/profile': typeof CustomerProfileRoute
   '/customer/transactions': typeof CustomerTransactionsRoute
   '/customer/transfers': typeof CustomerTransfersRoute
 }
@@ -121,8 +137,10 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/customer/accounts': typeof CustomerAccountsRoute
   '/customer/beneficiaries': typeof CustomerBeneficiariesRoute
+  '/customer/cards': typeof CustomerCardsRoute
   '/customer/dashboard': typeof CustomerDashboardRoute
   '/customer/loans': typeof CustomerLoansRoute
+  '/customer/profile': typeof CustomerProfileRoute
   '/customer/transactions': typeof CustomerTransactionsRoute
   '/customer/transfers': typeof CustomerTransfersRoute
 }
@@ -137,8 +155,10 @@ export interface FileRouteTypes {
     | '/login'
     | '/customer/accounts'
     | '/customer/beneficiaries'
+    | '/customer/cards'
     | '/customer/dashboard'
     | '/customer/loans'
+    | '/customer/profile'
     | '/customer/transactions'
     | '/customer/transfers'
   fileRoutesByTo: FileRoutesByTo
@@ -151,8 +171,10 @@ export interface FileRouteTypes {
     | '/login'
     | '/customer/accounts'
     | '/customer/beneficiaries'
+    | '/customer/cards'
     | '/customer/dashboard'
     | '/customer/loans'
+    | '/customer/profile'
     | '/customer/transactions'
     | '/customer/transfers'
   id:
@@ -165,8 +187,10 @@ export interface FileRouteTypes {
     | '/login'
     | '/customer/accounts'
     | '/customer/beneficiaries'
+    | '/customer/cards'
     | '/customer/dashboard'
     | '/customer/loans'
+    | '/customer/profile'
     | '/customer/transactions'
     | '/customer/transfers'
   fileRoutesById: FileRoutesById
@@ -238,6 +262,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CustomerBeneficiariesRouteImport
       parentRoute: typeof CustomerRoute
     }
+    '/customer/cards': {
+      id: '/customer/cards'
+      path: '/cards'
+      fullPath: '/customer/cards'
+      preLoaderRoute: typeof CustomerCardsRouteImport
+      parentRoute: typeof CustomerRoute
+    }
     '/customer/dashboard': {
       id: '/customer/dashboard'
       path: '/dashboard'
@@ -250,6 +281,13 @@ declare module '@tanstack/react-router' {
       path: '/loans'
       fullPath: '/customer/loans'
       preLoaderRoute: typeof CustomerLoansRouteImport
+      parentRoute: typeof CustomerRoute
+    }
+    '/customer/profile': {
+      id: '/customer/profile'
+      path: '/profile'
+      fullPath: '/customer/profile'
+      preLoaderRoute: typeof CustomerProfileRouteImport
       parentRoute: typeof CustomerRoute
     }
     '/customer/transactions': {
@@ -272,8 +310,10 @@ declare module '@tanstack/react-router' {
 interface CustomerRouteChildren {
   CustomerAccountsRoute: typeof CustomerAccountsRoute
   CustomerBeneficiariesRoute: typeof CustomerBeneficiariesRoute
+  CustomerCardsRoute: typeof CustomerCardsRoute
   CustomerDashboardRoute: typeof CustomerDashboardRoute
   CustomerLoansRoute: typeof CustomerLoansRoute
+  CustomerProfileRoute: typeof CustomerProfileRoute
   CustomerTransactionsRoute: typeof CustomerTransactionsRoute
   CustomerTransfersRoute: typeof CustomerTransfersRoute
 }
@@ -281,8 +321,10 @@ interface CustomerRouteChildren {
 const CustomerRouteChildren: CustomerRouteChildren = {
   CustomerAccountsRoute: CustomerAccountsRoute,
   CustomerBeneficiariesRoute: CustomerBeneficiariesRoute,
+  CustomerCardsRoute: CustomerCardsRoute,
   CustomerDashboardRoute: CustomerDashboardRoute,
   CustomerLoansRoute: CustomerLoansRoute,
+  CustomerProfileRoute: CustomerProfileRoute,
   CustomerTransactionsRoute: CustomerTransactionsRoute,
   CustomerTransfersRoute: CustomerTransfersRoute,
 }
