@@ -15,6 +15,8 @@ import { Route as CustomerRouteImport } from './routes/customer'
 import { Route as EmployeeRouteImport } from './routes/employee'
 import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as CustomerAccountsRouteImport } from './routes/customer.accounts'
+import { Route as CustomerDashboardRouteImport } from './routes/customer.dashboard'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -46,38 +48,69 @@ const LoginRoute = LoginRouteImport.update({
   path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CustomerAccountsRoute = CustomerAccountsRouteImport.update({
+  id: '/accounts',
+  path: '/accounts',
+  getParentRoute: () => CustomerRoute,
+} as any)
+const CustomerDashboardRoute = CustomerDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => CustomerRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
-  '/customer': typeof CustomerRoute
+  '/customer': typeof CustomerRouteWithChildren
   '/employee': typeof EmployeeRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
+  '/customer/accounts': typeof CustomerAccountsRoute
+  '/customer/dashboard': typeof CustomerDashboardRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
-  '/customer': typeof CustomerRoute
+  '/customer': typeof CustomerRouteWithChildren
   '/employee': typeof EmployeeRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
+  '/customer/accounts': typeof CustomerAccountsRoute
+  '/customer/dashboard': typeof CustomerDashboardRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
-  '/customer': typeof CustomerRoute
+  '/customer': typeof CustomerRouteWithChildren
   '/employee': typeof EmployeeRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
+  '/customer/accounts': typeof CustomerAccountsRoute
+  '/customer/dashboard': typeof CustomerDashboardRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/admin' | '/customer' | '/employee' | '/forgot-password' | '/login'
+    | '/'
+    | '/admin'
+    | '/customer'
+    | '/employee'
+    | '/forgot-password'
+    | '/login'
+    | '/customer/accounts'
+    | '/customer/dashboard'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/admin' | '/customer' | '/employee' | '/forgot-password' | '/login'
+  to:
+    | '/'
+    | '/admin'
+    | '/customer'
+    | '/employee'
+    | '/forgot-password'
+    | '/login'
+    | '/customer/accounts'
+    | '/customer/dashboard'
   id:
     | '__root__'
     | '/'
@@ -86,12 +119,14 @@ export interface FileRouteTypes {
     | '/employee'
     | '/forgot-password'
     | '/login'
+    | '/customer/accounts'
+    | '/customer/dashboard'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdminRoute: typeof AdminRoute
-  CustomerRoute: typeof CustomerRoute
+  CustomerRoute: typeof CustomerRouteWithChildren
   EmployeeRoute: typeof EmployeeRoute
   ForgotPasswordRoute: typeof ForgotPasswordRoute
   LoginRoute: typeof LoginRoute
@@ -141,13 +176,41 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/customer/accounts': {
+      id: '/customer/accounts'
+      path: '/accounts'
+      fullPath: '/customer/accounts'
+      preLoaderRoute: typeof CustomerAccountsRouteImport
+      parentRoute: typeof CustomerRoute
+    }
+    '/customer/dashboard': {
+      id: '/customer/dashboard'
+      path: '/dashboard'
+      fullPath: '/customer/dashboard'
+      preLoaderRoute: typeof CustomerDashboardRouteImport
+      parentRoute: typeof CustomerRoute
+    }
   }
 }
+
+interface CustomerRouteChildren {
+  CustomerAccountsRoute: typeof CustomerAccountsRoute
+  CustomerDashboardRoute: typeof CustomerDashboardRoute
+}
+
+const CustomerRouteChildren: CustomerRouteChildren = {
+  CustomerAccountsRoute: CustomerAccountsRoute,
+  CustomerDashboardRoute: CustomerDashboardRoute,
+}
+
+const CustomerRouteWithChildren = CustomerRoute._addFileChildren(
+  CustomerRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRoute: AdminRoute,
-  CustomerRoute: CustomerRoute,
+  CustomerRoute: CustomerRouteWithChildren,
   EmployeeRoute: EmployeeRoute,
   ForgotPasswordRoute: ForgotPasswordRoute,
   LoginRoute: LoginRoute,
