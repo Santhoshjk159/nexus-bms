@@ -10,33 +10,198 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminRouteImport } from './routes/admin'
+import { Route as CustomerRouteImport } from './routes/customer'
+import { Route as EmployeeRouteImport } from './routes/employee'
+import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as CustomerAccountsRouteImport } from './routes/customer.accounts'
+import { Route as CustomerBeneficiariesRouteImport } from './routes/customer.beneficiaries'
+import { Route as CustomerCardsRouteImport } from './routes/customer.cards'
+import { Route as CustomerDashboardRouteImport } from './routes/customer.dashboard'
+import { Route as CustomerLoansRouteImport } from './routes/customer.loans'
+import { Route as CustomerProfileRouteImport } from './routes/customer.profile'
+import { Route as CustomerTransactionsRouteImport } from './routes/customer.transactions'
+import { Route as CustomerTransfersRouteImport } from './routes/customer.transfers'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CustomerRoute = CustomerRouteImport.update({
+  id: '/customer',
+  path: '/customer',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EmployeeRoute = EmployeeRouteImport.update({
+  id: '/employee',
+  path: '/employee',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ForgotPasswordRoute = ForgotPasswordRouteImport.update({
+  id: '/forgot-password',
+  path: '/forgot-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CustomerAccountsRoute = CustomerAccountsRouteImport.update({
+  id: '/accounts',
+  path: '/accounts',
+  getParentRoute: () => CustomerRoute,
+} as any)
+const CustomerBeneficiariesRoute = CustomerBeneficiariesRouteImport.update({
+  id: '/beneficiaries',
+  path: '/beneficiaries',
+  getParentRoute: () => CustomerRoute,
+} as any)
+const CustomerCardsRoute = CustomerCardsRouteImport.update({
+  id: '/cards',
+  path: '/cards',
+  getParentRoute: () => CustomerRoute,
+} as any)
+const CustomerDashboardRoute = CustomerDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => CustomerRoute,
+} as any)
+const CustomerLoansRoute = CustomerLoansRouteImport.update({
+  id: '/loans',
+  path: '/loans',
+  getParentRoute: () => CustomerRoute,
+} as any)
+const CustomerProfileRoute = CustomerProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => CustomerRoute,
+} as any)
+const CustomerTransactionsRoute = CustomerTransactionsRouteImport.update({
+  id: '/transactions',
+  path: '/transactions',
+  getParentRoute: () => CustomerRoute,
+} as any)
+const CustomerTransfersRoute = CustomerTransfersRouteImport.update({
+  id: '/transfers',
+  path: '/transfers',
+  getParentRoute: () => CustomerRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
+  '/customer': typeof CustomerRouteWithChildren
+  '/employee': typeof EmployeeRoute
+  '/forgot-password': typeof ForgotPasswordRoute
+  '/login': typeof LoginRoute
+  '/customer/accounts': typeof CustomerAccountsRoute
+  '/customer/beneficiaries': typeof CustomerBeneficiariesRoute
+  '/customer/cards': typeof CustomerCardsRoute
+  '/customer/dashboard': typeof CustomerDashboardRoute
+  '/customer/loans': typeof CustomerLoansRoute
+  '/customer/profile': typeof CustomerProfileRoute
+  '/customer/transactions': typeof CustomerTransactionsRoute
+  '/customer/transfers': typeof CustomerTransfersRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
+  '/customer': typeof CustomerRouteWithChildren
+  '/employee': typeof EmployeeRoute
+  '/forgot-password': typeof ForgotPasswordRoute
+  '/login': typeof LoginRoute
+  '/customer/accounts': typeof CustomerAccountsRoute
+  '/customer/beneficiaries': typeof CustomerBeneficiariesRoute
+  '/customer/cards': typeof CustomerCardsRoute
+  '/customer/dashboard': typeof CustomerDashboardRoute
+  '/customer/loans': typeof CustomerLoansRoute
+  '/customer/profile': typeof CustomerProfileRoute
+  '/customer/transactions': typeof CustomerTransactionsRoute
+  '/customer/transfers': typeof CustomerTransfersRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
+  '/customer': typeof CustomerRouteWithChildren
+  '/employee': typeof EmployeeRoute
+  '/forgot-password': typeof ForgotPasswordRoute
+  '/login': typeof LoginRoute
+  '/customer/accounts': typeof CustomerAccountsRoute
+  '/customer/beneficiaries': typeof CustomerBeneficiariesRoute
+  '/customer/cards': typeof CustomerCardsRoute
+  '/customer/dashboard': typeof CustomerDashboardRoute
+  '/customer/loans': typeof CustomerLoansRoute
+  '/customer/profile': typeof CustomerProfileRoute
+  '/customer/transactions': typeof CustomerTransactionsRoute
+  '/customer/transfers': typeof CustomerTransfersRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/admin'
+    | '/customer'
+    | '/employee'
+    | '/forgot-password'
+    | '/login'
+    | '/customer/accounts'
+    | '/customer/beneficiaries'
+    | '/customer/cards'
+    | '/customer/dashboard'
+    | '/customer/loans'
+    | '/customer/profile'
+    | '/customer/transactions'
+    | '/customer/transfers'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/admin'
+    | '/customer'
+    | '/employee'
+    | '/forgot-password'
+    | '/login'
+    | '/customer/accounts'
+    | '/customer/beneficiaries'
+    | '/customer/cards'
+    | '/customer/dashboard'
+    | '/customer/loans'
+    | '/customer/profile'
+    | '/customer/transactions'
+    | '/customer/transfers'
+  id:
+    | '__root__'
+    | '/'
+    | '/admin'
+    | '/customer'
+    | '/employee'
+    | '/forgot-password'
+    | '/login'
+    | '/customer/accounts'
+    | '/customer/beneficiaries'
+    | '/customer/cards'
+    | '/customer/dashboard'
+    | '/customer/loans'
+    | '/customer/profile'
+    | '/customer/transactions'
+    | '/customer/transfers'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRoute: typeof AdminRoute
+  CustomerRoute: typeof CustomerRouteWithChildren
+  EmployeeRoute: typeof EmployeeRoute
+  ForgotPasswordRoute: typeof ForgotPasswordRoute
+  LoginRoute: typeof LoginRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +213,133 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/customer': {
+      id: '/customer'
+      path: '/customer'
+      fullPath: '/customer'
+      preLoaderRoute: typeof CustomerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/employee': {
+      id: '/employee'
+      path: '/employee'
+      fullPath: '/employee'
+      preLoaderRoute: typeof EmployeeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/forgot-password': {
+      id: '/forgot-password'
+      path: '/forgot-password'
+      fullPath: '/forgot-password'
+      preLoaderRoute: typeof ForgotPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/customer/accounts': {
+      id: '/customer/accounts'
+      path: '/accounts'
+      fullPath: '/customer/accounts'
+      preLoaderRoute: typeof CustomerAccountsRouteImport
+      parentRoute: typeof CustomerRoute
+    }
+    '/customer/beneficiaries': {
+      id: '/customer/beneficiaries'
+      path: '/beneficiaries'
+      fullPath: '/customer/beneficiaries'
+      preLoaderRoute: typeof CustomerBeneficiariesRouteImport
+      parentRoute: typeof CustomerRoute
+    }
+    '/customer/cards': {
+      id: '/customer/cards'
+      path: '/cards'
+      fullPath: '/customer/cards'
+      preLoaderRoute: typeof CustomerCardsRouteImport
+      parentRoute: typeof CustomerRoute
+    }
+    '/customer/dashboard': {
+      id: '/customer/dashboard'
+      path: '/dashboard'
+      fullPath: '/customer/dashboard'
+      preLoaderRoute: typeof CustomerDashboardRouteImport
+      parentRoute: typeof CustomerRoute
+    }
+    '/customer/loans': {
+      id: '/customer/loans'
+      path: '/loans'
+      fullPath: '/customer/loans'
+      preLoaderRoute: typeof CustomerLoansRouteImport
+      parentRoute: typeof CustomerRoute
+    }
+    '/customer/profile': {
+      id: '/customer/profile'
+      path: '/profile'
+      fullPath: '/customer/profile'
+      preLoaderRoute: typeof CustomerProfileRouteImport
+      parentRoute: typeof CustomerRoute
+    }
+    '/customer/transactions': {
+      id: '/customer/transactions'
+      path: '/transactions'
+      fullPath: '/customer/transactions'
+      preLoaderRoute: typeof CustomerTransactionsRouteImport
+      parentRoute: typeof CustomerRoute
+    }
+    '/customer/transfers': {
+      id: '/customer/transfers'
+      path: '/transfers'
+      fullPath: '/customer/transfers'
+      preLoaderRoute: typeof CustomerTransfersRouteImport
+      parentRoute: typeof CustomerRoute
+    }
   }
 }
 
+interface CustomerRouteChildren {
+  CustomerAccountsRoute: typeof CustomerAccountsRoute
+  CustomerBeneficiariesRoute: typeof CustomerBeneficiariesRoute
+  CustomerCardsRoute: typeof CustomerCardsRoute
+  CustomerDashboardRoute: typeof CustomerDashboardRoute
+  CustomerLoansRoute: typeof CustomerLoansRoute
+  CustomerProfileRoute: typeof CustomerProfileRoute
+  CustomerTransactionsRoute: typeof CustomerTransactionsRoute
+  CustomerTransfersRoute: typeof CustomerTransfersRoute
+}
+
+const CustomerRouteChildren: CustomerRouteChildren = {
+  CustomerAccountsRoute: CustomerAccountsRoute,
+  CustomerBeneficiariesRoute: CustomerBeneficiariesRoute,
+  CustomerCardsRoute: CustomerCardsRoute,
+  CustomerDashboardRoute: CustomerDashboardRoute,
+  CustomerLoansRoute: CustomerLoansRoute,
+  CustomerProfileRoute: CustomerProfileRoute,
+  CustomerTransactionsRoute: CustomerTransactionsRoute,
+  CustomerTransfersRoute: CustomerTransfersRoute,
+}
+
+const CustomerRouteWithChildren = CustomerRoute._addFileChildren(
+  CustomerRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRoute: AdminRoute,
+  CustomerRoute: CustomerRouteWithChildren,
+  EmployeeRoute: EmployeeRoute,
+  ForgotPasswordRoute: ForgotPasswordRoute,
+  LoginRoute: LoginRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
