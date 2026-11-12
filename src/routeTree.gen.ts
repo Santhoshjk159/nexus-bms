@@ -16,7 +16,9 @@ import { Route as EmployeeRouteImport } from './routes/employee'
 import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as CustomerAccountsRouteImport } from './routes/customer.accounts'
+import { Route as CustomerBeneficiariesRouteImport } from './routes/customer.beneficiaries'
 import { Route as CustomerDashboardRouteImport } from './routes/customer.dashboard'
+import { Route as CustomerLoansRouteImport } from './routes/customer.loans'
 import { Route as CustomerTransactionsRouteImport } from './routes/customer.transactions'
 import { Route as CustomerTransfersRouteImport } from './routes/customer.transfers'
 
@@ -55,9 +57,19 @@ const CustomerAccountsRoute = CustomerAccountsRouteImport.update({
   path: '/accounts',
   getParentRoute: () => CustomerRoute,
 } as any)
+const CustomerBeneficiariesRoute = CustomerBeneficiariesRouteImport.update({
+  id: '/beneficiaries',
+  path: '/beneficiaries',
+  getParentRoute: () => CustomerRoute,
+} as any)
 const CustomerDashboardRoute = CustomerDashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
+  getParentRoute: () => CustomerRoute,
+} as any)
+const CustomerLoansRoute = CustomerLoansRouteImport.update({
+  id: '/loans',
+  path: '/loans',
   getParentRoute: () => CustomerRoute,
 } as any)
 const CustomerTransactionsRoute = CustomerTransactionsRouteImport.update({
@@ -79,7 +91,9 @@ export interface FileRoutesByFullPath {
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
   '/customer/accounts': typeof CustomerAccountsRoute
+  '/customer/beneficiaries': typeof CustomerBeneficiariesRoute
   '/customer/dashboard': typeof CustomerDashboardRoute
+  '/customer/loans': typeof CustomerLoansRoute
   '/customer/transactions': typeof CustomerTransactionsRoute
   '/customer/transfers': typeof CustomerTransfersRoute
 }
@@ -91,7 +105,9 @@ export interface FileRoutesByTo {
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
   '/customer/accounts': typeof CustomerAccountsRoute
+  '/customer/beneficiaries': typeof CustomerBeneficiariesRoute
   '/customer/dashboard': typeof CustomerDashboardRoute
+  '/customer/loans': typeof CustomerLoansRoute
   '/customer/transactions': typeof CustomerTransactionsRoute
   '/customer/transfers': typeof CustomerTransfersRoute
 }
@@ -104,7 +120,9 @@ export interface FileRoutesById {
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
   '/customer/accounts': typeof CustomerAccountsRoute
+  '/customer/beneficiaries': typeof CustomerBeneficiariesRoute
   '/customer/dashboard': typeof CustomerDashboardRoute
+  '/customer/loans': typeof CustomerLoansRoute
   '/customer/transactions': typeof CustomerTransactionsRoute
   '/customer/transfers': typeof CustomerTransfersRoute
 }
@@ -118,7 +136,9 @@ export interface FileRouteTypes {
     | '/forgot-password'
     | '/login'
     | '/customer/accounts'
+    | '/customer/beneficiaries'
     | '/customer/dashboard'
+    | '/customer/loans'
     | '/customer/transactions'
     | '/customer/transfers'
   fileRoutesByTo: FileRoutesByTo
@@ -130,7 +150,9 @@ export interface FileRouteTypes {
     | '/forgot-password'
     | '/login'
     | '/customer/accounts'
+    | '/customer/beneficiaries'
     | '/customer/dashboard'
+    | '/customer/loans'
     | '/customer/transactions'
     | '/customer/transfers'
   id:
@@ -142,7 +164,9 @@ export interface FileRouteTypes {
     | '/forgot-password'
     | '/login'
     | '/customer/accounts'
+    | '/customer/beneficiaries'
     | '/customer/dashboard'
+    | '/customer/loans'
     | '/customer/transactions'
     | '/customer/transfers'
   fileRoutesById: FileRoutesById
@@ -207,11 +231,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CustomerAccountsRouteImport
       parentRoute: typeof CustomerRoute
     }
+    '/customer/beneficiaries': {
+      id: '/customer/beneficiaries'
+      path: '/beneficiaries'
+      fullPath: '/customer/beneficiaries'
+      preLoaderRoute: typeof CustomerBeneficiariesRouteImport
+      parentRoute: typeof CustomerRoute
+    }
     '/customer/dashboard': {
       id: '/customer/dashboard'
       path: '/dashboard'
       fullPath: '/customer/dashboard'
       preLoaderRoute: typeof CustomerDashboardRouteImport
+      parentRoute: typeof CustomerRoute
+    }
+    '/customer/loans': {
+      id: '/customer/loans'
+      path: '/loans'
+      fullPath: '/customer/loans'
+      preLoaderRoute: typeof CustomerLoansRouteImport
       parentRoute: typeof CustomerRoute
     }
     '/customer/transactions': {
@@ -233,14 +271,18 @@ declare module '@tanstack/react-router' {
 
 interface CustomerRouteChildren {
   CustomerAccountsRoute: typeof CustomerAccountsRoute
+  CustomerBeneficiariesRoute: typeof CustomerBeneficiariesRoute
   CustomerDashboardRoute: typeof CustomerDashboardRoute
+  CustomerLoansRoute: typeof CustomerLoansRoute
   CustomerTransactionsRoute: typeof CustomerTransactionsRoute
   CustomerTransfersRoute: typeof CustomerTransfersRoute
 }
 
 const CustomerRouteChildren: CustomerRouteChildren = {
   CustomerAccountsRoute: CustomerAccountsRoute,
+  CustomerBeneficiariesRoute: CustomerBeneficiariesRoute,
   CustomerDashboardRoute: CustomerDashboardRoute,
+  CustomerLoansRoute: CustomerLoansRoute,
   CustomerTransactionsRoute: CustomerTransactionsRoute,
   CustomerTransfersRoute: CustomerTransfersRoute,
 }
