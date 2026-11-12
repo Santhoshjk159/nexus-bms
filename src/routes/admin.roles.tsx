@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { Lock, Plus, Trash2 } from "lucide-react";
 import { toast } from "sonner";
@@ -33,13 +33,13 @@ function Roles() {
       <Panel title="Permission matrix" bodyClassName="p-0 overflow-x-auto">
         <table className="w-full text-sm">
           <thead className="bg-muted/60"><tr><th className="px-4 py-2.5 text-left text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Permission</th>{roles.map((r) => <th key={r.id} className="px-3 py-2.5 text-center text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">{r.name}</th>)}</tr></thead>
-          <tbody>{modules.map((m) => (<>
-            <tr key={m} className="border-t border-border bg-muted/30"><td colSpan={roles.length + 1} className="px-4 py-1.5 text-xs font-semibold text-accent-foreground">{m}</td></tr>
+          <tbody>{modules.map((m) => (<Fragment key={m}>
+            <tr className="border-t border-border bg-muted/30"><td colSpan={roles.length + 1} className="px-4 py-1.5 text-xs font-semibold text-accent-foreground">{m}</td></tr>
             {perms.filter((p) => p.module === m).map((p) => (
               <tr key={p.key} className="border-t border-border"><td className="px-4 py-2.5"><p>{p.description}</p><p className="num text-[11px] text-muted-foreground">{p.key}</p></td>
                 {roles.map((r) => <td key={r.id} className="px-3 text-center"><Checkbox checked={r.permissions.includes(p.key)} disabled={r.system} aria-label={`${r.name} ${p.key}`} onCheckedChange={() => { actions.togglePermission(r.id, p.key); toast.success(`${r.name}: ${p.key} ${r.permissions.includes(p.key) ? "revoked" : "granted"}`); }} /></td>)}
               </tr>))}
-          </>))}</tbody>
+          </Fragment>))}</tbody>
         </table>
       </Panel>
       <Dialog open={open} onOpenChange={setOpen}>

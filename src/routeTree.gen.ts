@@ -15,6 +15,10 @@ import { Route as CustomerRouteImport } from './routes/customer'
 import { Route as EmployeeRouteImport } from './routes/employee'
 import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as AdminBranchesRouteImport } from './routes/admin.branches'
+import { Route as AdminDashboardRouteImport } from './routes/admin.dashboard'
+import { Route as AdminEmployeesRouteImport } from './routes/admin.employees'
+import { Route as AdminRolesRouteImport } from './routes/admin.roles'
 import { Route as CustomerAccountsRouteImport } from './routes/customer.accounts'
 import { Route as CustomerBeneficiariesRouteImport } from './routes/customer.beneficiaries'
 import { Route as CustomerCardsRouteImport } from './routes/customer.cards'
@@ -62,6 +66,26 @@ const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AdminBranchesRoute = AdminBranchesRouteImport.update({
+  id: '/branches',
+  path: '/branches',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminDashboardRoute = AdminDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminEmployeesRoute = AdminEmployeesRouteImport.update({
+  id: '/employees',
+  path: '/employees',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminRolesRoute = AdminRolesRouteImport.update({
+  id: '/roles',
+  path: '/roles',
+  getParentRoute: () => AdminRoute,
 } as any)
 const CustomerAccountsRoute = CustomerAccountsRouteImport.update({
   id: '/accounts',
@@ -151,11 +175,15 @@ const EmployeeTransactionsRoute = EmployeeTransactionsRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/admin': typeof AdminRoute
+  '/admin': typeof AdminRouteWithChildren
   '/customer': typeof CustomerRouteWithChildren
   '/employee': typeof EmployeeRouteWithChildren
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
+  '/admin/branches': typeof AdminBranchesRoute
+  '/admin/dashboard': typeof AdminDashboardRoute
+  '/admin/employees': typeof AdminEmployeesRoute
+  '/admin/roles': typeof AdminRolesRoute
   '/customer/accounts': typeof CustomerAccountsRoute
   '/customer/beneficiaries': typeof CustomerBeneficiariesRoute
   '/customer/cards': typeof CustomerCardsRoute
@@ -176,11 +204,15 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/admin': typeof AdminRoute
+  '/admin': typeof AdminRouteWithChildren
   '/customer': typeof CustomerRouteWithChildren
   '/employee': typeof EmployeeRouteWithChildren
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
+  '/admin/branches': typeof AdminBranchesRoute
+  '/admin/dashboard': typeof AdminDashboardRoute
+  '/admin/employees': typeof AdminEmployeesRoute
+  '/admin/roles': typeof AdminRolesRoute
   '/customer/accounts': typeof CustomerAccountsRoute
   '/customer/beneficiaries': typeof CustomerBeneficiariesRoute
   '/customer/cards': typeof CustomerCardsRoute
@@ -202,11 +234,15 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/admin': typeof AdminRoute
+  '/admin': typeof AdminRouteWithChildren
   '/customer': typeof CustomerRouteWithChildren
   '/employee': typeof EmployeeRouteWithChildren
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
+  '/admin/branches': typeof AdminBranchesRoute
+  '/admin/dashboard': typeof AdminDashboardRoute
+  '/admin/employees': typeof AdminEmployeesRoute
+  '/admin/roles': typeof AdminRolesRoute
   '/customer/accounts': typeof CustomerAccountsRoute
   '/customer/beneficiaries': typeof CustomerBeneficiariesRoute
   '/customer/cards': typeof CustomerCardsRoute
@@ -234,6 +270,10 @@ export interface FileRouteTypes {
     | '/employee'
     | '/forgot-password'
     | '/login'
+    | '/admin/branches'
+    | '/admin/dashboard'
+    | '/admin/employees'
+    | '/admin/roles'
     | '/customer/accounts'
     | '/customer/beneficiaries'
     | '/customer/cards'
@@ -259,6 +299,10 @@ export interface FileRouteTypes {
     | '/employee'
     | '/forgot-password'
     | '/login'
+    | '/admin/branches'
+    | '/admin/dashboard'
+    | '/admin/employees'
+    | '/admin/roles'
     | '/customer/accounts'
     | '/customer/beneficiaries'
     | '/customer/cards'
@@ -284,6 +328,10 @@ export interface FileRouteTypes {
     | '/employee'
     | '/forgot-password'
     | '/login'
+    | '/admin/branches'
+    | '/admin/dashboard'
+    | '/admin/employees'
+    | '/admin/roles'
     | '/customer/accounts'
     | '/customer/beneficiaries'
     | '/customer/cards'
@@ -305,7 +353,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AdminRoute: typeof AdminRoute
+  AdminRoute: typeof AdminRouteWithChildren
   CustomerRoute: typeof CustomerRouteWithChildren
   EmployeeRoute: typeof EmployeeRouteWithChildren
   ForgotPasswordRoute: typeof ForgotPasswordRoute
@@ -355,6 +403,34 @@ declare module '@tanstack/react-router' {
       fullPath: '/login'
       preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/admin/branches': {
+      id: '/admin/branches'
+      path: '/branches'
+      fullPath: '/admin/branches'
+      preLoaderRoute: typeof AdminBranchesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/dashboard': {
+      id: '/admin/dashboard'
+      path: '/dashboard'
+      fullPath: '/admin/dashboard'
+      preLoaderRoute: typeof AdminDashboardRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/employees': {
+      id: '/admin/employees'
+      path: '/employees'
+      fullPath: '/admin/employees'
+      preLoaderRoute: typeof AdminEmployeesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/roles': {
+      id: '/admin/roles'
+      path: '/roles'
+      fullPath: '/admin/roles'
+      preLoaderRoute: typeof AdminRolesRouteImport
+      parentRoute: typeof AdminRoute
     }
     '/customer/accounts': {
       id: '/customer/accounts'
@@ -478,6 +554,22 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface AdminRouteChildren {
+  AdminBranchesRoute: typeof AdminBranchesRoute
+  AdminDashboardRoute: typeof AdminDashboardRoute
+  AdminEmployeesRoute: typeof AdminEmployeesRoute
+  AdminRolesRoute: typeof AdminRolesRoute
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminBranchesRoute: AdminBranchesRoute,
+  AdminDashboardRoute: AdminDashboardRoute,
+  AdminEmployeesRoute: AdminEmployeesRoute,
+  AdminRolesRoute: AdminRolesRoute,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
+
 interface CustomerRouteChildren {
   CustomerAccountsRoute: typeof CustomerAccountsRoute
   CustomerBeneficiariesRoute: typeof CustomerBeneficiariesRoute
@@ -534,7 +626,7 @@ const EmployeeRouteWithChildren = EmployeeRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AdminRoute: AdminRoute,
+  AdminRoute: AdminRouteWithChildren,
   CustomerRoute: CustomerRouteWithChildren,
   EmployeeRoute: EmployeeRouteWithChildren,
   ForgotPasswordRoute: ForgotPasswordRoute,
