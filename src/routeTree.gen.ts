@@ -17,6 +17,8 @@ import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as CustomerAccountsRouteImport } from './routes/customer.accounts'
 import { Route as CustomerDashboardRouteImport } from './routes/customer.dashboard'
+import { Route as CustomerTransactionsRouteImport } from './routes/customer.transactions'
+import { Route as CustomerTransfersRouteImport } from './routes/customer.transfers'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -58,6 +60,16 @@ const CustomerDashboardRoute = CustomerDashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => CustomerRoute,
 } as any)
+const CustomerTransactionsRoute = CustomerTransactionsRouteImport.update({
+  id: '/transactions',
+  path: '/transactions',
+  getParentRoute: () => CustomerRoute,
+} as any)
+const CustomerTransfersRoute = CustomerTransfersRouteImport.update({
+  id: '/transfers',
+  path: '/transfers',
+  getParentRoute: () => CustomerRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -68,6 +80,8 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/customer/accounts': typeof CustomerAccountsRoute
   '/customer/dashboard': typeof CustomerDashboardRoute
+  '/customer/transactions': typeof CustomerTransactionsRoute
+  '/customer/transfers': typeof CustomerTransfersRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -78,6 +92,8 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/customer/accounts': typeof CustomerAccountsRoute
   '/customer/dashboard': typeof CustomerDashboardRoute
+  '/customer/transactions': typeof CustomerTransactionsRoute
+  '/customer/transfers': typeof CustomerTransfersRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -89,6 +105,8 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/customer/accounts': typeof CustomerAccountsRoute
   '/customer/dashboard': typeof CustomerDashboardRoute
+  '/customer/transactions': typeof CustomerTransactionsRoute
+  '/customer/transfers': typeof CustomerTransfersRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -101,6 +119,8 @@ export interface FileRouteTypes {
     | '/login'
     | '/customer/accounts'
     | '/customer/dashboard'
+    | '/customer/transactions'
+    | '/customer/transfers'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -111,6 +131,8 @@ export interface FileRouteTypes {
     | '/login'
     | '/customer/accounts'
     | '/customer/dashboard'
+    | '/customer/transactions'
+    | '/customer/transfers'
   id:
     | '__root__'
     | '/'
@@ -121,6 +143,8 @@ export interface FileRouteTypes {
     | '/login'
     | '/customer/accounts'
     | '/customer/dashboard'
+    | '/customer/transactions'
+    | '/customer/transfers'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -190,17 +214,35 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CustomerDashboardRouteImport
       parentRoute: typeof CustomerRoute
     }
+    '/customer/transactions': {
+      id: '/customer/transactions'
+      path: '/transactions'
+      fullPath: '/customer/transactions'
+      preLoaderRoute: typeof CustomerTransactionsRouteImport
+      parentRoute: typeof CustomerRoute
+    }
+    '/customer/transfers': {
+      id: '/customer/transfers'
+      path: '/transfers'
+      fullPath: '/customer/transfers'
+      preLoaderRoute: typeof CustomerTransfersRouteImport
+      parentRoute: typeof CustomerRoute
+    }
   }
 }
 
 interface CustomerRouteChildren {
   CustomerAccountsRoute: typeof CustomerAccountsRoute
   CustomerDashboardRoute: typeof CustomerDashboardRoute
+  CustomerTransactionsRoute: typeof CustomerTransactionsRoute
+  CustomerTransfersRoute: typeof CustomerTransfersRoute
 }
 
 const CustomerRouteChildren: CustomerRouteChildren = {
   CustomerAccountsRoute: CustomerAccountsRoute,
   CustomerDashboardRoute: CustomerDashboardRoute,
+  CustomerTransactionsRoute: CustomerTransactionsRoute,
+  CustomerTransfersRoute: CustomerTransfersRoute,
 }
 
 const CustomerRouteWithChildren = CustomerRoute._addFileChildren(
