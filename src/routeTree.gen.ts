@@ -15,10 +15,14 @@ import { Route as CustomerRouteImport } from './routes/customer'
 import { Route as EmployeeRouteImport } from './routes/employee'
 import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as AdminAuditLogsRouteImport } from './routes/admin.audit-logs'
 import { Route as AdminBranchesRouteImport } from './routes/admin.branches'
+import { Route as AdminComplianceRouteImport } from './routes/admin.compliance'
 import { Route as AdminDashboardRouteImport } from './routes/admin.dashboard'
 import { Route as AdminEmployeesRouteImport } from './routes/admin.employees'
+import { Route as AdminLedgerRouteImport } from './routes/admin.ledger'
 import { Route as AdminRolesRouteImport } from './routes/admin.roles'
+import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
 import { Route as CustomerAccountsRouteImport } from './routes/customer.accounts'
 import { Route as CustomerBeneficiariesRouteImport } from './routes/customer.beneficiaries'
 import { Route as CustomerCardsRouteImport } from './routes/customer.cards'
@@ -67,9 +71,19 @@ const LoginRoute = LoginRouteImport.update({
   path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminAuditLogsRoute = AdminAuditLogsRouteImport.update({
+  id: '/audit-logs',
+  path: '/audit-logs',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminBranchesRoute = AdminBranchesRouteImport.update({
   id: '/branches',
   path: '/branches',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminComplianceRoute = AdminComplianceRouteImport.update({
+  id: '/compliance',
+  path: '/compliance',
   getParentRoute: () => AdminRoute,
 } as any)
 const AdminDashboardRoute = AdminDashboardRouteImport.update({
@@ -82,9 +96,19 @@ const AdminEmployeesRoute = AdminEmployeesRouteImport.update({
   path: '/employees',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminLedgerRoute = AdminLedgerRouteImport.update({
+  id: '/ledger',
+  path: '/ledger',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminRolesRoute = AdminRolesRouteImport.update({
   id: '/roles',
   path: '/roles',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminSettingsRoute = AdminSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
   getParentRoute: () => AdminRoute,
 } as any)
 const CustomerAccountsRoute = CustomerAccountsRouteImport.update({
@@ -180,10 +204,14 @@ export interface FileRoutesByFullPath {
   '/employee': typeof EmployeeRouteWithChildren
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
+  '/admin/audit-logs': typeof AdminAuditLogsRoute
   '/admin/branches': typeof AdminBranchesRoute
+  '/admin/compliance': typeof AdminComplianceRoute
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/employees': typeof AdminEmployeesRoute
+  '/admin/ledger': typeof AdminLedgerRoute
   '/admin/roles': typeof AdminRolesRoute
+  '/admin/settings': typeof AdminSettingsRoute
   '/customer/accounts': typeof CustomerAccountsRoute
   '/customer/beneficiaries': typeof CustomerBeneficiariesRoute
   '/customer/cards': typeof CustomerCardsRoute
@@ -209,10 +237,14 @@ export interface FileRoutesByTo {
   '/employee': typeof EmployeeRouteWithChildren
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
+  '/admin/audit-logs': typeof AdminAuditLogsRoute
   '/admin/branches': typeof AdminBranchesRoute
+  '/admin/compliance': typeof AdminComplianceRoute
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/employees': typeof AdminEmployeesRoute
+  '/admin/ledger': typeof AdminLedgerRoute
   '/admin/roles': typeof AdminRolesRoute
+  '/admin/settings': typeof AdminSettingsRoute
   '/customer/accounts': typeof CustomerAccountsRoute
   '/customer/beneficiaries': typeof CustomerBeneficiariesRoute
   '/customer/cards': typeof CustomerCardsRoute
@@ -239,10 +271,14 @@ export interface FileRoutesById {
   '/employee': typeof EmployeeRouteWithChildren
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
+  '/admin/audit-logs': typeof AdminAuditLogsRoute
   '/admin/branches': typeof AdminBranchesRoute
+  '/admin/compliance': typeof AdminComplianceRoute
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/employees': typeof AdminEmployeesRoute
+  '/admin/ledger': typeof AdminLedgerRoute
   '/admin/roles': typeof AdminRolesRoute
+  '/admin/settings': typeof AdminSettingsRoute
   '/customer/accounts': typeof CustomerAccountsRoute
   '/customer/beneficiaries': typeof CustomerBeneficiariesRoute
   '/customer/cards': typeof CustomerCardsRoute
@@ -270,10 +306,14 @@ export interface FileRouteTypes {
     | '/employee'
     | '/forgot-password'
     | '/login'
+    | '/admin/audit-logs'
     | '/admin/branches'
+    | '/admin/compliance'
     | '/admin/dashboard'
     | '/admin/employees'
+    | '/admin/ledger'
     | '/admin/roles'
+    | '/admin/settings'
     | '/customer/accounts'
     | '/customer/beneficiaries'
     | '/customer/cards'
@@ -299,10 +339,14 @@ export interface FileRouteTypes {
     | '/employee'
     | '/forgot-password'
     | '/login'
+    | '/admin/audit-logs'
     | '/admin/branches'
+    | '/admin/compliance'
     | '/admin/dashboard'
     | '/admin/employees'
+    | '/admin/ledger'
     | '/admin/roles'
+    | '/admin/settings'
     | '/customer/accounts'
     | '/customer/beneficiaries'
     | '/customer/cards'
@@ -328,10 +372,14 @@ export interface FileRouteTypes {
     | '/employee'
     | '/forgot-password'
     | '/login'
+    | '/admin/audit-logs'
     | '/admin/branches'
+    | '/admin/compliance'
     | '/admin/dashboard'
     | '/admin/employees'
+    | '/admin/ledger'
     | '/admin/roles'
+    | '/admin/settings'
     | '/customer/accounts'
     | '/customer/beneficiaries'
     | '/customer/cards'
@@ -404,11 +452,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/audit-logs': {
+      id: '/admin/audit-logs'
+      path: '/audit-logs'
+      fullPath: '/admin/audit-logs'
+      preLoaderRoute: typeof AdminAuditLogsRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/branches': {
       id: '/admin/branches'
       path: '/branches'
       fullPath: '/admin/branches'
       preLoaderRoute: typeof AdminBranchesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/compliance': {
+      id: '/admin/compliance'
+      path: '/compliance'
+      fullPath: '/admin/compliance'
+      preLoaderRoute: typeof AdminComplianceRouteImport
       parentRoute: typeof AdminRoute
     }
     '/admin/dashboard': {
@@ -425,11 +487,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminEmployeesRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/ledger': {
+      id: '/admin/ledger'
+      path: '/ledger'
+      fullPath: '/admin/ledger'
+      preLoaderRoute: typeof AdminLedgerRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/roles': {
       id: '/admin/roles'
       path: '/roles'
       fullPath: '/admin/roles'
       preLoaderRoute: typeof AdminRolesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/settings': {
+      id: '/admin/settings'
+      path: '/settings'
+      fullPath: '/admin/settings'
+      preLoaderRoute: typeof AdminSettingsRouteImport
       parentRoute: typeof AdminRoute
     }
     '/customer/accounts': {
@@ -555,17 +631,25 @@ declare module '@tanstack/react-router' {
 }
 
 interface AdminRouteChildren {
+  AdminAuditLogsRoute: typeof AdminAuditLogsRoute
   AdminBranchesRoute: typeof AdminBranchesRoute
+  AdminComplianceRoute: typeof AdminComplianceRoute
   AdminDashboardRoute: typeof AdminDashboardRoute
   AdminEmployeesRoute: typeof AdminEmployeesRoute
+  AdminLedgerRoute: typeof AdminLedgerRoute
   AdminRolesRoute: typeof AdminRolesRoute
+  AdminSettingsRoute: typeof AdminSettingsRoute
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
+  AdminAuditLogsRoute: AdminAuditLogsRoute,
   AdminBranchesRoute: AdminBranchesRoute,
+  AdminComplianceRoute: AdminComplianceRoute,
   AdminDashboardRoute: AdminDashboardRoute,
   AdminEmployeesRoute: AdminEmployeesRoute,
+  AdminLedgerRoute: AdminLedgerRoute,
   AdminRolesRoute: AdminRolesRoute,
+  AdminSettingsRoute: AdminSettingsRoute,
 }
 
 const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
