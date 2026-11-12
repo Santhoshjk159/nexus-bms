@@ -28,6 +28,9 @@ import { Route as EmployeeCustomersRouteImport } from './routes/employee.custome
 import { Route as EmployeeDashboardRouteImport } from './routes/employee.dashboard'
 import { Route as EmployeeFraudMonitoringRouteImport } from './routes/employee.fraud-monitoring'
 import { Route as EmployeeKycRouteImport } from './routes/employee.kyc'
+import { Route as EmployeeLoansRouteImport } from './routes/employee.loans'
+import { Route as EmployeeReportsRouteImport } from './routes/employee.reports'
+import { Route as EmployeeSupportRouteImport } from './routes/employee.support'
 import { Route as EmployeeTransactionsRouteImport } from './routes/employee.transactions'
 
 const IndexRoute = IndexRouteImport.update({
@@ -125,6 +128,21 @@ const EmployeeKycRoute = EmployeeKycRouteImport.update({
   path: '/kyc',
   getParentRoute: () => EmployeeRoute,
 } as any)
+const EmployeeLoansRoute = EmployeeLoansRouteImport.update({
+  id: '/loans',
+  path: '/loans',
+  getParentRoute: () => EmployeeRoute,
+} as any)
+const EmployeeReportsRoute = EmployeeReportsRouteImport.update({
+  id: '/reports',
+  path: '/reports',
+  getParentRoute: () => EmployeeRoute,
+} as any)
+const EmployeeSupportRoute = EmployeeSupportRouteImport.update({
+  id: '/support',
+  path: '/support',
+  getParentRoute: () => EmployeeRoute,
+} as any)
 const EmployeeTransactionsRoute = EmployeeTransactionsRouteImport.update({
   id: '/transactions',
   path: '/transactions',
@@ -151,6 +169,9 @@ export interface FileRoutesByFullPath {
   '/employee/dashboard': typeof EmployeeDashboardRoute
   '/employee/fraud-monitoring': typeof EmployeeFraudMonitoringRoute
   '/employee/kyc': typeof EmployeeKycRoute
+  '/employee/loans': typeof EmployeeLoansRoute
+  '/employee/reports': typeof EmployeeReportsRoute
+  '/employee/support': typeof EmployeeSupportRoute
   '/employee/transactions': typeof EmployeeTransactionsRoute
 }
 export interface FileRoutesByTo {
@@ -173,6 +194,9 @@ export interface FileRoutesByTo {
   '/employee/dashboard': typeof EmployeeDashboardRoute
   '/employee/fraud-monitoring': typeof EmployeeFraudMonitoringRoute
   '/employee/kyc': typeof EmployeeKycRoute
+  '/employee/loans': typeof EmployeeLoansRoute
+  '/employee/reports': typeof EmployeeReportsRoute
+  '/employee/support': typeof EmployeeSupportRoute
   '/employee/transactions': typeof EmployeeTransactionsRoute
 }
 export interface FileRoutesById {
@@ -196,6 +220,9 @@ export interface FileRoutesById {
   '/employee/dashboard': typeof EmployeeDashboardRoute
   '/employee/fraud-monitoring': typeof EmployeeFraudMonitoringRoute
   '/employee/kyc': typeof EmployeeKycRoute
+  '/employee/loans': typeof EmployeeLoansRoute
+  '/employee/reports': typeof EmployeeReportsRoute
+  '/employee/support': typeof EmployeeSupportRoute
   '/employee/transactions': typeof EmployeeTransactionsRoute
 }
 export interface FileRouteTypes {
@@ -220,6 +247,9 @@ export interface FileRouteTypes {
     | '/employee/dashboard'
     | '/employee/fraud-monitoring'
     | '/employee/kyc'
+    | '/employee/loans'
+    | '/employee/reports'
+    | '/employee/support'
     | '/employee/transactions'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -242,6 +272,9 @@ export interface FileRouteTypes {
     | '/employee/dashboard'
     | '/employee/fraud-monitoring'
     | '/employee/kyc'
+    | '/employee/loans'
+    | '/employee/reports'
+    | '/employee/support'
     | '/employee/transactions'
   id:
     | '__root__'
@@ -264,6 +297,9 @@ export interface FileRouteTypes {
     | '/employee/dashboard'
     | '/employee/fraud-monitoring'
     | '/employee/kyc'
+    | '/employee/loans'
+    | '/employee/reports'
+    | '/employee/support'
     | '/employee/transactions'
   fileRoutesById: FileRoutesById
 }
@@ -411,6 +447,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EmployeeKycRouteImport
       parentRoute: typeof EmployeeRoute
     }
+    '/employee/loans': {
+      id: '/employee/loans'
+      path: '/loans'
+      fullPath: '/employee/loans'
+      preLoaderRoute: typeof EmployeeLoansRouteImport
+      parentRoute: typeof EmployeeRoute
+    }
+    '/employee/reports': {
+      id: '/employee/reports'
+      path: '/reports'
+      fullPath: '/employee/reports'
+      preLoaderRoute: typeof EmployeeReportsRouteImport
+      parentRoute: typeof EmployeeRoute
+    }
+    '/employee/support': {
+      id: '/employee/support'
+      path: '/support'
+      fullPath: '/employee/support'
+      preLoaderRoute: typeof EmployeeSupportRouteImport
+      parentRoute: typeof EmployeeRoute
+    }
     '/employee/transactions': {
       id: '/employee/transactions'
       path: '/transactions'
@@ -453,6 +510,9 @@ interface EmployeeRouteChildren {
   EmployeeDashboardRoute: typeof EmployeeDashboardRoute
   EmployeeFraudMonitoringRoute: typeof EmployeeFraudMonitoringRoute
   EmployeeKycRoute: typeof EmployeeKycRoute
+  EmployeeLoansRoute: typeof EmployeeLoansRoute
+  EmployeeReportsRoute: typeof EmployeeReportsRoute
+  EmployeeSupportRoute: typeof EmployeeSupportRoute
   EmployeeTransactionsRoute: typeof EmployeeTransactionsRoute
 }
 
@@ -462,6 +522,9 @@ const EmployeeRouteChildren: EmployeeRouteChildren = {
   EmployeeDashboardRoute: EmployeeDashboardRoute,
   EmployeeFraudMonitoringRoute: EmployeeFraudMonitoringRoute,
   EmployeeKycRoute: EmployeeKycRoute,
+  EmployeeLoansRoute: EmployeeLoansRoute,
+  EmployeeReportsRoute: EmployeeReportsRoute,
+  EmployeeSupportRoute: EmployeeSupportRoute,
   EmployeeTransactionsRoute: EmployeeTransactionsRoute,
 }
 
