@@ -4,8 +4,9 @@ import {
   LayoutDashboard, ListChecks, Receipt, Settings, ShieldAlert, ShieldCheck, UserCircle, Users, UsersRound, Wallet, KeyRound, Scale,
 } from "lucide-react";
 import type { Role } from "@/types";
+import type { LinkProps } from "@tanstack/react-router";
 
-export interface NavItem { to: string; label: string; icon: LucideIcon }
+export interface NavItem { to: LinkProps["to"] & string; label: string; icon: LucideIcon }
 export interface NavGroup { label: string; items: NavItem[] }
 export const NAV: Record<Role, NavGroup[]> = {
   CUSTOMER: [
