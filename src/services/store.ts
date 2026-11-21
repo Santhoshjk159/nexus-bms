@@ -5,6 +5,7 @@ import { isBalanced, screenTransaction } from "@/lib/banking";
 import { ref } from "@/lib/format";
 import type * as T from "@/types";
 import { getSession } from "@/lib/auth";
+import type { TestRun } from "@/docs/types";
 
 export interface BankState {
   customers: T.Customer[]; employees: T.Employee[]; accounts: T.BankAccount[]; transactions: T.Transaction[];
@@ -12,6 +13,8 @@ export interface BankState {
   cards: T.BankCard[]; kycApplications: T.KYCApplication[]; fraudAlerts: T.FraudAlert[]; auditLogs: T.AuditLog[];
   tickets: T.SupportTicket[]; branches: T.Branch[]; roles: T.RoleDef[]; permissions: T.Permission[];
   notifications: T.Notification[]; accountApplications: T.AccountApplication[]; settings: T.SystemSettings;
+  /** Manually recorded SE Hub test executions, keyed by test case ID. Starts empty (= Not Run). */
+  testRuns: Record<string, TestRun>;
 }
 const KEY = "nexus-bank-state-v1";
 const fresh = (): BankState => structuredClone({
@@ -19,12 +22,12 @@ const fresh = (): BankState => structuredClone({
   ledgerAccounts: seed.ledgerAccounts, ledgerEntries: seed.ledgerEntries, beneficiaries: seed.beneficiaries, loans: seed.loans,
   cards: seed.cards, kycApplications: seed.kycApplications, fraudAlerts: seed.fraudAlerts, auditLogs: seed.auditLogs,
   tickets: seed.tickets, branches: seed.branches, roles: seed.roles, permissions: seed.permissions,
-  notifications: seed.notifications, accountApplications: seed.accountApplications, settings: seed.settings,
+  notifications: seed.notifications, accountApplications: seed.accountApplications, settings: seed.settings, testRuns: {},
 });
 const serverState = fresh();
 let state: BankState = serverState;
 if (typeof window !== "undefined") {
-  try { const raw = localStorage.getItem(KEY); state = raw ? JSON.parse(raw) : fresh(); } catch { state = fresh(); }
+  try { const raw = localStorage.getItem(KEY); state = raw ? { ...fresh(), ...JSON.parse(raw) } : fresh(); } catch { state = fresh(); }
 }
 const listeners = new Set<() => void>();
 function set(fn: (d: BankState) => void) {
@@ -187,5 +190,9 @@ export const actions = {
     return done;
   },
   updateSettings(p: Partial<T.SystemSettings>) { set((d) => { Object.assign(d.settings, p); audit(d, "SETTINGS_CHANGED", "SETTINGS", Object.keys(p).join(",")); }); },
+  recordTestRun(id: string, run: Omit<TestRun, "updatedAt" | "updatedBy">) {
+    set((d) => { d.testRuns[id] = { ...run, updatedAt: now(), updatedBy: getSession()?.name ?? "Administrator" }; audit(d, `TEST_${run.status}`, "TEST_CASE", id); });
+  },
+  resetTestRun(id: string) { set((d) => { delete d.testRuns[id]; audit(d, "TEST_RESET", "TEST_CASE", id); }); },
   logEvent(action: string, entity: string, entityId: string, outcome: T.AuditLog["outcome"] = "SUCCESS") { set((d) => audit(d, action, entity, entityId, outcome)); },
 };

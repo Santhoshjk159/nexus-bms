@@ -34,7 +34,7 @@ function SideNav({ role, onNavigate }: { role: Role; onNavigate?: () => void }) 
           <div key={g.label}>
             <p className="px-2 pb-1.5 text-[10px] font-semibold uppercase tracking-widest text-sidebar-foreground/50">{g.label}</p>
             {g.items.map((it) => {
-              const active = pathname === it.to;
+              const active = pathname === it.to || (it.to === "/admin/se-hub" && pathname.startsWith(it.to + "/"));
               return (
                 <Link key={it.to} to={it.to} onClick={onNavigate} className={cn("mb-0.5 flex items-center gap-2.5 rounded-md px-2 py-2 text-sm transition-colors", active ? "bg-sidebar-accent font-medium text-sidebar-accent-foreground" : "hover:bg-sidebar-accent/60 hover:text-sidebar-accent-foreground")}>
                   <it.icon className={cn("size-4", active && "text-sidebar-primary")} />{it.label}

@@ -1,7 +1,7 @@
 import type { LucideIcon } from "lucide-react";
 import {
   ArrowLeftRight, BadgeCheck, BarChart3, BookOpenCheck, Building2, CreditCard, FileClock, Gauge, Headphones, Landmark,
-  LayoutDashboard, ListChecks, Receipt, Settings, ShieldAlert, ShieldCheck, UserCircle, Users, UsersRound, Wallet, KeyRound, Scale,
+  LayoutDashboard, ListChecks, Receipt, Settings, ShieldAlert, ShieldCheck, UserCircle, Users, UsersRound, Wallet, KeyRound, Scale, BookOpen,
 } from "lucide-react";
 import type { Role } from "@/types";
 import type { LinkProps } from "@tanstack/react-router";
@@ -29,5 +29,6 @@ export const NAV: Record<Role, NavGroup[]> = {
     { label: "Administration", items: [ { to: "/admin/employees", label: "Employees", icon: Users }, { to: "/admin/roles", label: "Roles & permissions", icon: KeyRound }, { to: "/admin/branches", label: "Branches", icon: Building2 } ] },
     { label: "Finance & Risk", items: [ { to: "/admin/ledger", label: "General ledger", icon: BookOpenCheck }, { to: "/admin/audit-logs", label: "Audit logs", icon: FileClock }, { to: "/admin/compliance", label: "Compliance", icon: Scale } ] },
     { label: "System", items: [ { to: "/admin/settings", label: "Settings", icon: Settings }, { to: "/employee/dashboard", label: "Operations portal", icon: ShieldCheck } ] },
+    { label: "System Management", items: [ { to: "/admin/se-hub", label: "Software Engineering Hub", icon: BookOpen } ] },
   ],
 };

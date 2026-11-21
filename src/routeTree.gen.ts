@@ -22,6 +22,7 @@ import { Route as AdminDashboardRouteImport } from './routes/admin.dashboard'
 import { Route as AdminEmployeesRouteImport } from './routes/admin.employees'
 import { Route as AdminLedgerRouteImport } from './routes/admin.ledger'
 import { Route as AdminRolesRouteImport } from './routes/admin.roles'
+import { Route as AdminSeHubRouteImport } from './routes/admin.se-hub'
 import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
 import { Route as CustomerAccountsRouteImport } from './routes/customer.accounts'
 import { Route as CustomerBeneficiariesRouteImport } from './routes/customer.beneficiaries'
@@ -40,6 +41,8 @@ import { Route as EmployeeLoansRouteImport } from './routes/employee.loans'
 import { Route as EmployeeReportsRouteImport } from './routes/employee.reports'
 import { Route as EmployeeSupportRouteImport } from './routes/employee.support'
 import { Route as EmployeeTransactionsRouteImport } from './routes/employee.transactions'
+import { Route as AdminSeHubIndexRouteImport } from './routes/admin.se-hub.index'
+import { Route as AdminSeHubSectionRouteImport } from './routes/admin.se-hub.$section'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -104,6 +107,11 @@ const AdminLedgerRoute = AdminLedgerRouteImport.update({
 const AdminRolesRoute = AdminRolesRouteImport.update({
   id: '/roles',
   path: '/roles',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminSeHubRoute = AdminSeHubRouteImport.update({
+  id: '/se-hub',
+  path: '/se-hub',
   getParentRoute: () => AdminRoute,
 } as any)
 const AdminSettingsRoute = AdminSettingsRouteImport.update({
@@ -196,6 +204,16 @@ const EmployeeTransactionsRoute = EmployeeTransactionsRouteImport.update({
   path: '/transactions',
   getParentRoute: () => EmployeeRoute,
 } as any)
+const AdminSeHubIndexRoute = AdminSeHubIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminSeHubRoute,
+} as any)
+const AdminSeHubSectionRoute = AdminSeHubSectionRouteImport.update({
+  id: '/$section',
+  path: '/$section',
+  getParentRoute: () => AdminSeHubRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -211,6 +229,7 @@ export interface FileRoutesByFullPath {
   '/admin/employees': typeof AdminEmployeesRoute
   '/admin/ledger': typeof AdminLedgerRoute
   '/admin/roles': typeof AdminRolesRoute
+  '/admin/se-hub': typeof AdminSeHubRouteWithChildren
   '/admin/settings': typeof AdminSettingsRoute
   '/customer/accounts': typeof CustomerAccountsRoute
   '/customer/beneficiaries': typeof CustomerBeneficiariesRoute
@@ -229,6 +248,8 @@ export interface FileRoutesByFullPath {
   '/employee/reports': typeof EmployeeReportsRoute
   '/employee/support': typeof EmployeeSupportRoute
   '/employee/transactions': typeof EmployeeTransactionsRoute
+  '/admin/se-hub/$section': typeof AdminSeHubSectionRoute
+  '/admin/se-hub/': typeof AdminSeHubIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -262,6 +283,8 @@ export interface FileRoutesByTo {
   '/employee/reports': typeof EmployeeReportsRoute
   '/employee/support': typeof EmployeeSupportRoute
   '/employee/transactions': typeof EmployeeTransactionsRoute
+  '/admin/se-hub/$section': typeof AdminSeHubSectionRoute
+  '/admin/se-hub': typeof AdminSeHubIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -278,6 +301,7 @@ export interface FileRoutesById {
   '/admin/employees': typeof AdminEmployeesRoute
   '/admin/ledger': typeof AdminLedgerRoute
   '/admin/roles': typeof AdminRolesRoute
+  '/admin/se-hub': typeof AdminSeHubRouteWithChildren
   '/admin/settings': typeof AdminSettingsRoute
   '/customer/accounts': typeof CustomerAccountsRoute
   '/customer/beneficiaries': typeof CustomerBeneficiariesRoute
@@ -296,6 +320,8 @@ export interface FileRoutesById {
   '/employee/reports': typeof EmployeeReportsRoute
   '/employee/support': typeof EmployeeSupportRoute
   '/employee/transactions': typeof EmployeeTransactionsRoute
+  '/admin/se-hub/$section': typeof AdminSeHubSectionRoute
+  '/admin/se-hub/': typeof AdminSeHubIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -313,6 +339,7 @@ export interface FileRouteTypes {
     | '/admin/employees'
     | '/admin/ledger'
     | '/admin/roles'
+    | '/admin/se-hub'
     | '/admin/settings'
     | '/customer/accounts'
     | '/customer/beneficiaries'
@@ -331,6 +358,8 @@ export interface FileRouteTypes {
     | '/employee/reports'
     | '/employee/support'
     | '/employee/transactions'
+    | '/admin/se-hub/$section'
+    | '/admin/se-hub/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -364,6 +393,8 @@ export interface FileRouteTypes {
     | '/employee/reports'
     | '/employee/support'
     | '/employee/transactions'
+    | '/admin/se-hub/$section'
+    | '/admin/se-hub'
   id:
     | '__root__'
     | '/'
@@ -379,6 +410,7 @@ export interface FileRouteTypes {
     | '/admin/employees'
     | '/admin/ledger'
     | '/admin/roles'
+    | '/admin/se-hub'
     | '/admin/settings'
     | '/customer/accounts'
     | '/customer/beneficiaries'
@@ -397,6 +429,8 @@ export interface FileRouteTypes {
     | '/employee/reports'
     | '/employee/support'
     | '/employee/transactions'
+    | '/admin/se-hub/$section'
+    | '/admin/se-hub/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -499,6 +533,13 @@ declare module '@tanstack/react-router' {
       path: '/roles'
       fullPath: '/admin/roles'
       preLoaderRoute: typeof AdminRolesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/se-hub': {
+      id: '/admin/se-hub'
+      path: '/se-hub'
+      fullPath: '/admin/se-hub'
+      preLoaderRoute: typeof AdminSeHubRouteImport
       parentRoute: typeof AdminRoute
     }
     '/admin/settings': {
@@ -627,8 +668,36 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EmployeeTransactionsRouteImport
       parentRoute: typeof EmployeeRoute
     }
+    '/admin/se-hub/': {
+      id: '/admin/se-hub/'
+      path: '/'
+      fullPath: '/admin/se-hub/'
+      preLoaderRoute: typeof AdminSeHubIndexRouteImport
+      parentRoute: typeof AdminSeHubRoute
+    }
+    '/admin/se-hub/$section': {
+      id: '/admin/se-hub/$section'
+      path: '/$section'
+      fullPath: '/admin/se-hub/$section'
+      preLoaderRoute: typeof AdminSeHubSectionRouteImport
+      parentRoute: typeof AdminSeHubRoute
+    }
   }
 }
+
+interface AdminSeHubRouteChildren {
+  AdminSeHubSectionRoute: typeof AdminSeHubSectionRoute
+  AdminSeHubIndexRoute: typeof AdminSeHubIndexRoute
+}
+
+const AdminSeHubRouteChildren: AdminSeHubRouteChildren = {
+  AdminSeHubSectionRoute: AdminSeHubSectionRoute,
+  AdminSeHubIndexRoute: AdminSeHubIndexRoute,
+}
+
+const AdminSeHubRouteWithChildren = AdminSeHubRoute._addFileChildren(
+  AdminSeHubRouteChildren,
+)
 
 interface AdminRouteChildren {
   AdminAuditLogsRoute: typeof AdminAuditLogsRoute
@@ -638,6 +707,7 @@ interface AdminRouteChildren {
   AdminEmployeesRoute: typeof AdminEmployeesRoute
   AdminLedgerRoute: typeof AdminLedgerRoute
   AdminRolesRoute: typeof AdminRolesRoute
+  AdminSeHubRoute: typeof AdminSeHubRouteWithChildren
   AdminSettingsRoute: typeof AdminSettingsRoute
 }
 
@@ -649,6 +719,7 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminEmployeesRoute: AdminEmployeesRoute,
   AdminLedgerRoute: AdminLedgerRoute,
   AdminRolesRoute: AdminRolesRoute,
+  AdminSeHubRoute: AdminSeHubRouteWithChildren,
   AdminSettingsRoute: AdminSettingsRoute,
 }
 
