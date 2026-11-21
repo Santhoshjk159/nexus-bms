@@ -54,6 +54,7 @@ export function AppShell({ role, children }: { role: Role; children: ReactNode }
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const [open, setOpen] = useState(false);
+  const focus = pathname.startsWith("/admin/se-hub");
   const notes = useBank((s) => s.notifications.filter((n) => n.audience === role));
   const unread = notes.filter((n) => !n.read).length;
   const allItems = Object.values(NAV).flat().flatMap((g) => g.items);
@@ -66,13 +67,13 @@ export function AppShell({ role, children }: { role: Role; children: ReactNode }
 
   return (
     <div className="min-h-screen bg-background">
-      <aside className="fixed inset-y-0 left-0 z-30 hidden w-60 lg:block"><SideNav role={role} /></aside>
+      <aside className={cn("fixed inset-y-0 left-0 z-30 hidden w-60", !focus && "lg:block")}><SideNav role={role} /></aside>
       <Sheet open={open} onOpenChange={setOpen}>
         <SheetContent side="left" className="w-64 border-none p-0"><SheetTitle className="sr-only">Navigation</SheetTitle><SideNav role={role} onNavigate={() => setOpen(false)} /></SheetContent>
       </Sheet>
-      <div className="lg:pl-60">
+      <div className={cn(!focus && "lg:pl-60")}>
         <header className="sticky top-0 z-20 flex h-14 items-center gap-3 border-b border-border bg-card/95 px-4 backdrop-blur sm:px-6">
-          <Button variant="ghost" size="icon" className="lg:hidden" onClick={() => setOpen(true)} aria-label="Open navigation"><Menu className="size-5" /></Button>
+          <Button variant="ghost" size="icon" className={cn(!focus && "lg:hidden")} onClick={() => setOpen(true)} aria-label="Open navigation"><Menu className="size-5" /></Button>
           <nav aria-label="Breadcrumb" className="hidden min-w-0 items-center gap-1 text-sm text-muted-foreground sm:flex">
             <span>{PORTAL[role]}</span>
             {segs.slice(1).map((s, i) => (<span key={i} className="flex items-center gap-1"><ChevronRight className="size-3.5" /><span className={i === segs.length - 2 ? "font-medium text-foreground" : ""}>{i === segs.length - 2 && current ? current.label : s === "se-hub" ? "Software Engineering Hub" : humanize(s)}</span></span>))}

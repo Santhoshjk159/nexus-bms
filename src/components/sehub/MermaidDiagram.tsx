@@ -12,8 +12,34 @@ function loadMermaid() {
   mermaidPromise ??= import("mermaid").then((m) => {
     m.default.initialize({
       startOnLoad: false, securityLevel: "strict", theme: "base", fontFamily: "IBM Plex Sans, sans-serif",
-      themeVariables: { primaryColor: "#eef3fb", primaryBorderColor: "#1e3a6e", primaryTextColor: "#0f1f3d", lineColor: "#40618f", secondaryColor: "#e3f5f6", tertiaryColor: "#f7f9fc", fontSize: "14px", noteBkgColor: "#fff8e1", actorBkg: "#eef3fb", actorBorder: "#1e3a6e", signalColor: "#1d2a44" },
-      flowchart: { htmlLabels: false, curve: "basis", useMaxWidth: false }, sequence: { mirrorActors: false, useMaxWidth: false }, er: { useMaxWidth: false }, class: { useMaxWidth: false }, state: { useMaxWidth: false },
+       themeVariables: {
+        background: "#ffffff", primaryColor: "#f1f6fd", primaryBorderColor: "#2c5aa0", primaryTextColor: "#0f1f3d",
+        secondaryColor: "#e6f7f8", secondaryBorderColor: "#1a9aa6", tertiaryColor: "#fafbfd", tertiaryBorderColor: "#c9d5e6",
+        lineColor: "#5b7bab", textColor: "#1d2a44", fontSize: "15px", clusterBkg: "#f7faff", clusterBorder: "#b9cbe6",
+        edgeLabelBackground: "#ffffff", noteBkgColor: "#fff9e6", noteBorderColor: "#e6c35c", noteTextColor: "#4a3b0b",
+        actorBkg: "#e8f0fc", actorBorder: "#2c5aa0", actorTextColor: "#0f1f3d", labelTextColor: "#13294b", loopTextColor: "#13294b", actorLineColor: "#9fb3d1", signalColor: "#2c4370", signalTextColor: "#1d2a44",
+        labelBoxBkgColor: "#e6f7f8", labelBoxBorderColor: "#1a9aa6", activationBkgColor: "#dceaff", activationBorderColor: "#2c5aa0",
+        sequenceNumberColor: "#ffffff", attributeBackgroundColorOdd: "#ffffff", attributeBackgroundColorEven: "#f4f8fd",
+      },
+      themeCSS: `
+        .node rect, .node polygon, .node circle, .node ellipse, .node path { filter: drop-shadow(0 1px 2px rgba(15,31,61,.12)); stroke-width: 1.4px; }
+        .node rect { rx: 8; ry: 8; }
+        .edgePath .path, .flowchart-link { stroke-width: 1.6px; }
+        .edgeLabel, .edgeLabel rect { font-size: 13px; }
+        .cluster rect { rx: 12; ry: 12; stroke-dasharray: 4 3; }
+        .cluster-label, .cluster text { font-weight: 600; fill: #2c5aa0; }
+        .actor { filter: drop-shadow(0 2px 3px rgba(15,31,61,.18)); rx: 6; }
+        text.actor > tspan { font-weight: 600; }
+        .messageText { font-size: 13.5px; }
+        .note { rx: 6; }
+        .classGroup rect, .er.entityBox { filter: drop-shadow(0 1px 2px rgba(15,31,61,.12)); }
+        .classTitle, .er.entityLabel { font-weight: 700; }
+        .stateGroup rect, .statediagram-state rect { rx: 10; ry: 10; }
+      `,
+      flowchart: { htmlLabels: false, curve: "basis", useMaxWidth: false, nodeSpacing: 48, rankSpacing: 60, padding: 14, diagramPadding: 24 },
+      sequence: { mirrorActors: false, useMaxWidth: false, actorMargin: 70, boxMargin: 12, messageMargin: 42, noteMargin: 12, showSequenceNumbers: true },
+      er: { useMaxWidth: false, layoutDirection: "LR", entityPadding: 18, minEntityWidth: 120, fontSize: 14 },
+      class: { useMaxWidth: false, padding: 10 }, state: { useMaxWidth: false, padding: 10 },
     });
     return m.default;
   });
@@ -41,8 +67,8 @@ export function MermaidDiagram({ diagram, height = 560 }: { diagram: Diagram; he
     const el = wrap.current, s = stage.current?.querySelector("svg"); if (!el || !s) return;
     const vb = s.viewBox.baseVal; const w = vb?.width || parseFloat(s.getAttribute("width") ?? "") || 800, h = vb?.height || parseFloat(s.getAttribute("height") ?? "") || 600;
     s.setAttribute("width", String(w)); s.setAttribute("height", String(h)); s.style.maxWidth = "none"; s.style.width = `${w}px`; s.style.height = `${h}px`;
-    const r = el.getBoundingClientRect(); const z = Math.min((r.width - 32) / w, (r.height - 32) / h, 2);
-    setView({ z, x: (r.width - w * z) / 2, y: (r.height - h * z) / 2 });
+    const r = el.getBoundingClientRect(); const z = Math.min(Math.max(Math.min((r.width - 48) / w, (r.height - 48) / h), 0.5), 1.4);
+    setView({ z, x: Math.max(24, (r.width - w * z) / 2), y: Math.max(24, (r.height - h * z) / 2) });
   }, []);
   useEffect(() => { if (svg) requestAnimationFrame(fit); }, [svg, fit, full]);
   useEffect(() => { const f = () => setFull(document.fullscreenElement === wrap.current?.parentElement); document.addEventListener("fullscreenchange", f); return () => document.removeEventListener("fullscreenchange", f); }, []);
@@ -86,7 +112,7 @@ export function MermaidDiagram({ diagram, height = 560 }: { diagram: Diagram; he
         <Button size="icon" variant="ghost" className="size-8" onClick={copy} aria-label="Copy source"><Copy className="size-4" /></Button>
       </div>
       <div className={cn("grid", showSrc && "lg:grid-cols-[1fr_380px]", full && "min-h-0 flex-1")}>
-        <div ref={wrap} data-testid="diagram-canvas" className="relative cursor-grab touch-none overflow-hidden bg-[radial-gradient(var(--border)_1px,transparent_1px)] [background-size:16px_16px] active:cursor-grabbing" style={{ height: full ? "100%" : height }}
+        <div ref={wrap} data-testid="diagram-canvas" className="relative cursor-grab touch-none overflow-hidden bg-card bg-[radial-gradient(color-mix(in_oklab,var(--border)_70%,transparent)_1px,transparent_1px)] [background-size:22px_22px] active:cursor-grabbing" style={{ height: full ? "100%" : `min(${height}px, 75vh)` }}
           onPointerDown={(e) => { (e.target as HTMLElement).setPointerCapture(e.pointerId); drag.current = { x: e.clientX, y: e.clientY, ox: view.x, oy: view.y }; }}
           onPointerMove={(e) => { const d = drag.current; if (d) setView((v) => ({ ...v, x: d.ox + e.clientX - d.x, y: d.oy + e.clientY - d.y })); }}
           onPointerUp={() => (drag.current = null)} onDoubleClick={fit}>
