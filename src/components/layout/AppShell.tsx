@@ -75,7 +75,7 @@ export function AppShell({ role, children }: { role: Role; children: ReactNode }
           <Button variant="ghost" size="icon" className="lg:hidden" onClick={() => setOpen(true)} aria-label="Open navigation"><Menu className="size-5" /></Button>
           <nav aria-label="Breadcrumb" className="hidden min-w-0 items-center gap-1 text-sm text-muted-foreground sm:flex">
             <span>{PORTAL[role]}</span>
-            {segs.slice(1).map((s, i) => (<span key={i} className="flex items-center gap-1"><ChevronRight className="size-3.5" /><span className={i === segs.length - 2 ? "font-medium text-foreground" : ""}>{i === segs.length - 2 && current ? current.label : humanize(s)}</span></span>))}
+            {segs.slice(1).map((s, i) => (<span key={i} className="flex items-center gap-1"><ChevronRight className="size-3.5" /><span className={i === segs.length - 2 ? "font-medium text-foreground" : ""}>{i === segs.length - 2 && current ? current.label : s === "se-hub" ? "Software Engineering Hub" : humanize(s)}</span></span>))}
           </nav>
           <form onSubmit={go} className="relative ml-auto hidden md:block">
             <Search className="absolute left-2.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />

@@ -33,3 +33,5 @@ use the editor.
 - Domain logic lives in `src/lib/banking.ts` (pure, tested) and `src/services/store.ts` (mock core persisted to localStorage); pages call `actions.*`/`useBank`, never mutate state directly — keeps a clean swap to Spring Boot via `src/services/api.ts`.
 - Portal layouts (`customer.tsx`, `employee.tsx`, `admin.tsx`) are `ssr: false` and guard with `canAccess` in `src/lib/auth.ts` — session lives in localStorage, so SSR cannot see it.
 - tsconfig keeps `strict` but disables `exactOptionalPropertyTypes`, `noUncheckedIndexedAccess`, `noPropertyAccessFromIndexSignature` — they conflicted with recharts/shadcn typings and dense seed data.
+- SE Hub documentation lives as typed data in `src/docs/` with shared IDs (FR/NFR/BR, UML, TC, MOD); hub pages render from `HUB_NAV` in `src/components/sehub/nav.ts` via `admin.se-hub.$section.tsx`. Keep IDs consistent — `src/test/se-hub.test.ts` fails on dangling links.
+- Mermaid is imported dynamically inside the diagram viewer only — it touches the DOM and must stay out of SSR. Test results live in store `testRuns` (empty = Not Run); never seed results.

@@ -13,7 +13,7 @@ function loadMermaid() {
     m.default.initialize({
       startOnLoad: false, securityLevel: "strict", theme: "base", fontFamily: "IBM Plex Sans, sans-serif",
       themeVariables: { primaryColor: "#eef3fb", primaryBorderColor: "#1e3a6e", primaryTextColor: "#0f1f3d", lineColor: "#40618f", secondaryColor: "#e3f5f6", tertiaryColor: "#f7f9fc", fontSize: "14px", noteBkgColor: "#fff8e1", actorBkg: "#eef3fb", actorBorder: "#1e3a6e", signalColor: "#1d2a44" },
-      flowchart: { htmlLabels: false, curve: "basis" }, sequence: { mirrorActors: false }, er: { useMaxWidth: false },
+      flowchart: { htmlLabels: false, curve: "basis", useMaxWidth: false }, sequence: { mirrorActors: false, useMaxWidth: false }, er: { useMaxWidth: false }, class: { useMaxWidth: false }, state: { useMaxWidth: false },
     });
     return m.default;
   });
@@ -39,8 +39,8 @@ export function MermaidDiagram({ diagram, height = 560 }: { diagram: Diagram; he
 
   const fit = useCallback(() => {
     const el = wrap.current, s = stage.current?.querySelector("svg"); if (!el || !s) return;
-    const vb = s.viewBox.baseVal; const w = vb?.width || s.getBoundingClientRect().width, h = vb?.height || s.getBoundingClientRect().height;
-    s.setAttribute("width", String(w)); s.setAttribute("height", String(h)); s.style.maxWidth = "none";
+    const vb = s.viewBox.baseVal; const w = vb?.width || parseFloat(s.getAttribute("width") ?? "") || 800, h = vb?.height || parseFloat(s.getAttribute("height") ?? "") || 600;
+    s.setAttribute("width", String(w)); s.setAttribute("height", String(h)); s.style.maxWidth = "none"; s.style.width = `${w}px`; s.style.height = `${h}px`;
     const r = el.getBoundingClientRect(); const z = Math.min((r.width - 32) / w, (r.height - 32) / h, 2);
     setView({ z, x: (r.width - w * z) / 2, y: (r.height - h * z) / 2 });
   }, []);
